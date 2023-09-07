@@ -17,21 +17,28 @@ public:
 	void SetPlayer();
 	void FixPlayer();
 
+	void ResetPlayer();
+
+	void Select();
+
+
 private:
 	char keys[356] = {};
 	char preKeys[356] = {};
 
 	Map* m = new Map;
-
+	Map* waku = new Map;
 	int RedBall = Novice::LoadTexture("./NoviceResources/RedBall.png");//ボール = 1
 
 	Vector2 pos{1,10};
 	Vector2 kPos{};
+	Vector2 sPos{};
 
 	int moveCount = 0;
 	int moveMax = 2;
 
 	bool isSet = false;
+	bool isSelectSet = false;
 	//ブロックサイズの設定
 	const int kBlocksize = 64;
 
@@ -40,6 +47,7 @@ private:
 	enum movePattern {
 		NORMAL,
 		SETMODE,
+		SELRCT,
 	};
 	movePattern mp = NORMAL;
 };

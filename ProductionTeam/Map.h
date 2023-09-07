@@ -29,11 +29,13 @@ public:
 		SETPOINT,//1置ける場所
 		BLOCKTILE,//2ブロックタイル
 		BORDER,//3マップ境界線
+		DESTTINATION,//4行動カウント
 	};
 private:
 	const int kBlocksize = 64;//
 
 	int Blocka = Novice::LoadTexture("./NoviceResources/blocka.png");//ブロック
 	int waku = Novice::LoadTexture("./NoviceResources/waku.png");//ブロック
+
 
 };
