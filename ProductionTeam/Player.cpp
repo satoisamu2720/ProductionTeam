@@ -18,6 +18,7 @@ void Player::Updata() {
 
 	//
 	Move();
+	ballUpdata();
 	CheckSafety();
 }
 
@@ -139,6 +140,15 @@ void Player::CheckSafety() {
 				ball[i].ballState = UNSTABLE;
 				ball[i].color = 0xff9999ff;
 			}
+		}
+	}
+}
+
+void Player::ballUpdata() {
+	for (int i = 0; i < 100; i++)
+	{
+		if (ball[i].ballState == DANGER) {
+
 		}
 	}
 }

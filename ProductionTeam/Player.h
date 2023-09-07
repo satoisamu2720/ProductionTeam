@@ -21,6 +21,8 @@ private:
 
 	void CheckSafety();
 
+	void ballUpdata();
+
 private:
 	char keys[356] = {};
 	char preKeys[356] = {};
