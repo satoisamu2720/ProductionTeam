@@ -1,6 +1,5 @@
 #include <Novice.h>
-#include "Map.h"
-#include "Player.h"
+#include "sceneManager.h"
 
 const char kWindowTitle[] = "サルノ橋";
 
@@ -11,8 +10,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	Novice::Initialize(kWindowTitle, 1380, 768);
 
 	//
-	Map* map = new Map;
-	Player* player = new Player;
+	sceneManager* sceneM = new sceneManager;
 
 	// キー入力結果を受け取る箱
 	char keys[356] = {0};
@@ -30,7 +28,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		///
 		/// ↓更新処理ここから
 		///
-		player->Updata();
+		sceneM->Update();
 		///
 		/// ↑更新処理ここまで
 		///
@@ -38,8 +36,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		///
 		/// ↓描画処理ここから
 		///
-		map->Draw();
-		player->Draw();
+		sceneM->Draw();
 		///
 		/// ↑描画処理ここまで
 		///

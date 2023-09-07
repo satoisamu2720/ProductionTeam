@@ -1,7 +1,7 @@
 #include "Player.h"
 
 void Player::Initialize() {
-
+	
 }
 
 void Player::Updata() {
@@ -13,86 +13,87 @@ void Player::Updata() {
 
 	//
 	Move();
-	SetPlayer();
 }
 
 void Player::Draw() {
+	if (!isSet) {
+		Novice::DrawBox(0, 0, 1380, 768, 0.0f, 0xccffffff, kFillModeSolid);
+	}
+	else {
+		Novice::DrawBox(0, 0, 1380, 768, 0.0f, 0xffccccff, kFillModeSolid);
+	}
 	if (isSet) {
-		Novice::DrawEllipse(int(pos.x) + 32, int(pos.y) + 32, 16, 16, 0.0f, WHITE, kFillModeSolid);//仮ボール
+		Novice::DrawEllipse(int(kPos.x) + 32, int(kPos.y) + 32, 16, 16, 0.0f, WHITE, kFillModeSolid);//仮ボール
 	}
-	for (int i = 0; i < 12; i++) {
-		for (int j = 0; j < 13; j++) {
-			if (BallPoint[j][i] == REDBALL) {//赤ボール描画
-				Novice::DrawSprite(i * kBlocksize, j * kBlocksize, RedBall, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
-			}
-		}
-	}
+	Novice::DrawSprite(int(pos.x) * kBlocksize, int(pos.y) * kBlocksize, RedBall, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
 }
 
 void Player::Move() {
-	if (keys[DIK_UP] && preKeys[DIK_UP] && RedBallY >= 2) {//上を押したら
-		if (BallPoint[RedBallY - 1][RedBallX] == NONEBALL && SelectTimer <= 0) {//ボールの位置-1へないことを確認
-			BallPoint[RedBallY - 1][RedBallX] = REDBALL;//ボールの位置をY-1へ移動
-			BallPoint[RedBallY][RedBallX] = NONEBALL;//ボールの元の位置からボールをなくす
-
+	switch (mp)
+	{
+	case Player::NORMAL:
+		SetPlayer();
+		if (keys[DIK_UP] && preKeys[DIK_UP] && SelectTimer <= 0 && m->map[int(pos.y - 1)][int(pos.x)] != m->BORDER) {//上を押したら
 			SelectTimer = 10;
-			RedBallY -= 1;
+			pos.y -= 1;
 		}
-	}
-
-	else if (keys[DIK_DOWN] && preKeys[DIK_DOWN] && RedBallY <= 9) {//下を押したら
-
-		if (BallPoint[RedBallY + 1][RedBallX] == NONEBALL && SelectTimer <= 0) {//ボールの位置+1へないことを確認
-			BallPoint[RedBallY + 1][RedBallX] = REDBALL;//ボールの位置をY+1へ移動
-			BallPoint[RedBallY][RedBallX] = NONEBALL;//ボールの元の位置からボールをなくす
-
-
+		else if (keys[DIK_DOWN] && SelectTimer <= 0 && preKeys[DIK_DOWN] && m->map[int(pos.y + 1)][int(pos.x)] != m->BORDER) {//下を押したら
 			SelectTimer = 10;
-			RedBallY += 1;
+			pos.y += 1;
 		}
-
-	}
-	else if (keys[DIK_RIGHT] && preKeys[DIK_RIGHT] && RedBallX <= 10) {//右を押したら
-
-		if (BallPoint[RedBallY][RedBallX + 1] == NONEBALL && SelectTimer <= 0) {//ボールの位置+1へないことを確認
-			BallPoint[RedBallY][RedBallX + 1] = REDBALL;//ボールの位置をX+1へ移動
-			BallPoint[RedBallY][RedBallX] = NONEBALL;//ボールの元の位置からボールをなくす
-
-
+		else if (keys[DIK_RIGHT] && SelectTimer <= 0 && preKeys[DIK_RIGHT] && m->map[int(pos.y)][int(pos.x + 1)] != m->BORDER) {//右を押したら
 			SelectTimer = 10;
-			RedBallX += 1;
+			pos.x += 1;
 		}
-
-	}
-	else if (keys[DIK_LEFT] && preKeys[DIK_LEFT] && RedBallX >= 2) {//左を押したら
-
-		if (BallPoint[RedBallY][RedBallX - 1] == NONEBALL && SelectTimer <= 0) {//ボールの位置-1へないことを確認
-			BallPoint[RedBallY][RedBallX - 1] = REDBALL;//ボールの位置をX-1へ移動
-			BallPoint[RedBallY][RedBallX] = NONEBALL;//ボールの元の位置からボールをなくす
-
-
+		else if (keys[DIK_LEFT] && SelectTimer <= 0 && preKeys[DIK_LEFT] && m->map[int(pos.y)][int(pos.x - 1)] != m->BORDER) {//左を押したら
 			SelectTimer = 10;
-			RedBallX -= 1;
+			pos.x -= 1;
 		}
+		break;
+	case Player::SETMODE:
+		if (moveCount < moveMax) {
+			if (keys[DIK_UP] && preKeys[DIK_UP] && SelectTimer <= 0 && m->map[int(pos.y - 1)][int(pos.x)] != m->BORDER) {//上を押したら
+				SelectTimer = 10;
+				moveCount += 1;
+				pos.y -= 1;
+			}
+			else if (keys[DIK_DOWN] && SelectTimer <= 0 && preKeys[DIK_DOWN] && m->map[int(pos.y + 1)][int(pos.x)] != m->BORDER) {//下を押したら
+				SelectTimer = 10;
+				moveCount += 1;
+				pos.y += 1;
+			}
+			else if (keys[DIK_RIGHT] && SelectTimer <= 0 && preKeys[DIK_RIGHT] && m->map[int(pos.y)][int(pos.x + 1)] != m->BORDER) {//右を押したら
+				SelectTimer = 10;
+				moveCount += 1;
+				pos.x += 1;
+			}
+			else if (keys[DIK_LEFT] && SelectTimer <= 0 && preKeys[DIK_LEFT] && m->map[int(pos.y)][int(pos.x - 1)] != m->BORDER) {//左を押したら
+				SelectTimer = 10;
+				moveCount += 1;
+				pos.x -= 1;
+			}
+		}
+		if (moveCount >= moveMax && keys[DIK_SPACE] && !preKeys[DIK_SPACE]) {
+			mp = NORMAL;
+		}
+		break;
 	}
 }
 
 void Player::SetPlayer() {
 	if (keys[DIK_SPACE] && !preKeys[DIK_SPACE]) {
-		pos = GetPosition();
+		kPos.x = pos.x * 64;
+		kPos.y = pos.y * 64;
 		isSet = true;
+		mp = SETMODE;
 	}
 }
 
-Vector2 Player::GetPosition() {
-	Vector2 pos;
-	for (int i = 0; i < 12; i++) {
-		for (int j = 0; j < 13; j++) {
-			if (BallPoint[j][i] == REDBALL) {//赤ボール描画
-				pos.x = i * kBlocksize;
-				pos.y = j * kBlocksize;
-				return pos;
-			}
-		}
+void Player::FixPlayer() {
+	if (keys[DIK_SPACE] && !preKeys[DIK_SPACE]) {
+		kPos.x = pos.x * 64;
+		kPos.y = pos.y * 64;
+		isSet = false;
+		mp = NORMAL;
 	}
 }
