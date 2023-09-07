@@ -74,6 +74,8 @@ void Player::Move() {
 			}
 		}
 		if (moveCount >= moveMax && keys[DIK_SPACE] && !preKeys[DIK_SPACE]) {
+			moveCount = 0;
+			isSet = false;
 			mp = NORMAL;
 		}
 		break;
