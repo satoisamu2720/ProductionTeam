@@ -16,6 +16,7 @@ public:
 
 	void SetPlayer();
 	void FixPlayer();
+	void RollBack();
 
 private:
 	char keys[356] = {};

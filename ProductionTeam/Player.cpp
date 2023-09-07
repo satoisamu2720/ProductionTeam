@@ -51,6 +51,7 @@ void Player::Move() {
 		//}
 		break;
 	case Player::SETMODE:
+		RollBack();//àÍéËëOÇ÷ñﬂÇÈ
 		if (moveCount < moveMax) {
 			if (keys[DIK_UP] && preKeys[DIK_UP] && SelectTimer <= 0 && m->map[int(pos.y - 1)][int(pos.x)] != m->BORDER) {//è„ÇâüÇµÇΩÇÁ
 				SelectTimer = 10;
@@ -99,5 +100,14 @@ void Player::FixPlayer() {
 		//kPos.y = pos.y * 64;
 		isSet = false;
 		mp = NORMAL;
+	}
+}
+
+void Player::RollBack() {
+	if (keys[DIK_RETURN] && !preKeys[DIK_RETURN]) {
+		kCount -= 1;
+		pos.x = kPos[kCount].x /64;
+		pos.y = kPos[kCount].y /64;
+		kPos[kCount] = {};
 	}
 }
