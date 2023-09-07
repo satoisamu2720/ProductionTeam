@@ -31,7 +31,7 @@ private:
 
 	int RedBall = Novice::LoadTexture("./NoviceResources/RedBall.png");//É{Å[Éã = 1
 
-	Vector2 pos{1,9};
+	Vector2 pos{1*64,9*64};
 
 	int kCount = 0;
 

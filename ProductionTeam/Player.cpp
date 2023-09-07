@@ -29,10 +29,10 @@ void Player::Draw() {
 	else {
 		Novice::DrawBox(0, 0, 1380, 768, 0.0f, 0xffccccff, kFillModeSolid);
 	}
-	Novice::DrawSprite(int(pos.x) * kBlocksize, int(pos.y) * kBlocksize, RedBall, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+	Novice::DrawSprite(int(pos.x), int(pos.y), RedBall, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
 	for (int i = 0; i < 100; i++) {
 		if (ball[i].isActive) {
-			Novice::DrawEllipse(int(ball[i].position.x)*64 + 32, int(ball[i].position.y)*64 + 32, 16, 16, 0.0f, ball[i].color, kFillModeSolid);//仮ボール
+			Novice::DrawEllipse(int(ball[i].position.x) + 32, int(ball[i].position.y) + 32, 16, 16, 0.0f, ball[i].color, kFillModeSolid);//仮ボール
 		}
 	}
 }
@@ -43,42 +43,34 @@ void Player::Move() {
 	case Player::NORMAL:
 		RollBack();//一手前へ戻る
 		SetPlayer();
-		//if (keys[DIK_UP] && preKeys[DIK_UP] && SelectTimer <= 0 && m->map[int(pos.y - 1)][int(pos.x)] != m->BORDER) {//上を押したら
-		//	SelectTimer = 10;
-		//	pos.y -= 1;
-		//}
-		//else if (keys[DIK_DOWN] && SelectTimer <= 0 && preKeys[DIK_DOWN] && m->map[int(pos.y + 1)][int(pos.x)] != m->BORDER) {//下を押したら
-		//	SelectTimer = 10;
-		//	pos.y += 1;
-		//}
-		//else if (keys[DIK_RIGHT] && SelectTimer <= 0 && preKeys[DIK_RIGHT] && m->map[int(pos.y)][int(pos.x + 1)] != m->BORDER) {//右を押したら
-		//	SelectTimer = 10;
-		//	pos.x += 1;
-		//}
-		//else if (keys[DIK_LEFT] && SelectTimer <= 0 && preKeys[DIK_LEFT] && m->map[int(pos.y)][int(pos.x - 1)] != m->BORDER) {//左を押したら
-		//	SelectTimer = 10;
-		//	pos.x -= 1;
-		//}
+		if (keys[DIK_UP] && preKeys[DIK_UP] && SelectTimer <= 0 && m->map[int(pos.y - 1)][int(pos.x)] != m->BORDER) {//上を押したら
+			pos.y -= 1;
+		}
+		if (keys[DIK_DOWN] && SelectTimer <= 0 && preKeys[DIK_DOWN] && m->map[int(pos.y + 1)][int(pos.x)] != m->BORDER) {//下を押したら
+			pos.y += 1;
+		}
+		if (keys[DIK_RIGHT] && SelectTimer <= 0 && preKeys[DIK_RIGHT] && m->map[int(pos.y)][int(pos.x + 1)] != m->BORDER) {//右を押したら
+			pos.x += 1;
+		}
+		if (keys[DIK_LEFT] && SelectTimer <= 0 && preKeys[DIK_LEFT] && m->map[int(pos.y)][int(pos.x - 1)] != m->BORDER) {//左を押したら
+			pos.x -= 1;
+		}
 		break;
 	case Player::SETMODE:
 		if (moveCount < moveMax) {
 			if (keys[DIK_UP] && preKeys[DIK_UP] && SelectTimer <= 0 && m->map[int(pos.y - 1)][int(pos.x)] != m->BORDER) {//上を押したら
-				SelectTimer = 10;
 				moveCount += 1;
 				pos.y -= 1;
 			}
-			else if (keys[DIK_DOWN] && SelectTimer <= 0 && preKeys[DIK_DOWN] && m->map[int(pos.y + 1)][int(pos.x)] != m->BORDER) {//下を押したら
-				SelectTimer = 10;
+			if (keys[DIK_DOWN] && SelectTimer <= 0 && preKeys[DIK_DOWN] && m->map[int(pos.y + 1)][int(pos.x)] != m->BORDER) {//下を押したら
 				moveCount += 1;
 				pos.y += 1;
 			}
-			else if (keys[DIK_RIGHT] && SelectTimer <= 0 && preKeys[DIK_RIGHT] && m->map[int(pos.y)][int(pos.x + 1)] != m->BORDER) {//右を押したら
-				SelectTimer = 10;
+			if (keys[DIK_RIGHT] && SelectTimer <= 0 && preKeys[DIK_RIGHT] && m->map[int(pos.y)][int(pos.x + 1)] != m->BORDER) {//右を押したら
 				moveCount += 1;
 				pos.x += 1;
 			}
-			else if (keys[DIK_LEFT] && SelectTimer <= 0 && preKeys[DIK_LEFT] && m->map[int(pos.y)][int(pos.x - 1)] != m->BORDER) {//左を押したら
-				SelectTimer = 10;
+			if (keys[DIK_LEFT] && SelectTimer <= 0 && preKeys[DIK_LEFT] && m->map[int(pos.y)][int(pos.x - 1)] != m->BORDER) {//左を押したら
 				moveCount += 1;
 				pos.x -= 1;
 			}
