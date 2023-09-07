@@ -1,7 +1,12 @@
 #include "Player.h"
 
 void Player::Initialize() {
-	
+	for (int i = 0; i < 100; i++) {
+		ball[i].position = {0,0};
+		ball[i].ballState = STABLE;
+		ball[i].isActive = false;
+		ball[i].color = WHITE;
+	}
 }
 
 void Player::Updata() {
@@ -24,7 +29,9 @@ void Player::Draw() {
 	}
 	Novice::DrawSprite(int(pos.x) * kBlocksize, int(pos.y) * kBlocksize, RedBall, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
 	for (int i = 0; i < 100; i++) {
-		Novice::DrawEllipse(int(kPos[i].x) + 32, int(kPos[i].y) + 32, 16, 16, 0.0f, WHITE, kFillModeSolid);//仮ボール
+		if (ball[i].isActive) {
+			Novice::DrawEllipse(int(ball[i].position.x)*64 + 32, int(ball[i].position.y)*64 + 32, 16, 16, 0.0f, ball[i].color, kFillModeSolid);//仮ボール
+		}
 	}
 }
 
@@ -85,9 +92,9 @@ void Player::Move() {
 
 void Player::SetPlayer() {
 	if (keys[DIK_SPACE] && !preKeys[DIK_SPACE]) {
-		kPos[kCount].x = pos.x * 64;
-		kPos[kCount].y = pos.y * 64;
+		ball[kCount].position = pos;
 		isSet = true;
+		ball[kCount].isActive = true;
 		mp = SETMODE;
 
 		kCount += 1;
@@ -96,8 +103,6 @@ void Player::SetPlayer() {
 
 void Player::FixPlayer() {
 	if (keys[DIK_SPACE] && !preKeys[DIK_SPACE]) {
-		//kPos.x = pos.x * 64;
-		//kPos.y = pos.y * 64;
 		isSet = false;
 		mp = NORMAL;
 	}
@@ -106,8 +111,9 @@ void Player::FixPlayer() {
 void Player::RollBack() {
 	if (keys[DIK_RETURN] && !preKeys[DIK_RETURN] && kCount>=1) {
 		kCount -= 1;
-		pos.x = kPos[kCount].x /64;
-		pos.y = kPos[kCount].y /64;
-		kPos[kCount] = {};
+
+		pos = ball[kCount].position;
+		ball[kCount].position = {};
+		ball[kCount].isActive = false;
 	}
 }

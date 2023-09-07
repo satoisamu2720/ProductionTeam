@@ -27,8 +27,7 @@ private:
 
 	int RedBall = Novice::LoadTexture("./NoviceResources/RedBall.png");//É{Å[Éã = 1
 
-	Vector2 pos{1,10};
-	Vector2 kPos[100]{};
+	Vector2 pos{1,5};
 
 	int kCount = 0;
 
@@ -45,5 +44,20 @@ private:
 		NORMAL,
 		SETMODE,
 	};
+
+	enum BallState {
+		STABLE,
+		UNSTABLE,
+		DANGER,
+	};
+
+	struct Ball {
+		Vector2 position{};
+		BallState ballState = STABLE;
+		UINT32 color = WHITE;
+		bool isActive = false;
+	};
+	Ball ball[100] = {};
+
 	movePattern mp = NORMAL;
 };
