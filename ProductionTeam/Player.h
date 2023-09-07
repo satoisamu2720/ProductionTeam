@@ -48,15 +48,15 @@ private:
 	};
 
 	enum BallState {
-		STABLE,
-		UNSTABLE,
-		DANGER,
+		STABLE,//ˆÀ’è
+		UNSTABLE,//•sˆÀ’è
+		DANGER,//ŠëŒ¯
 	};
 
 	enum BallKind {
-		a,
-		b,
-		c,
+		a,//yowai
+		b,//normal
+		c,//tuyoi
 	};
 
 	struct Ball {
