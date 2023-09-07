@@ -29,7 +29,7 @@ private:
 
 	int RedBall = Novice::LoadTexture("./NoviceResources/RedBall.png");//É{Å[Éã = 1
 
-	Vector2 pos{1,5};
+	Vector2 pos{1,9};
 
 	int kCount = 0;
 
@@ -61,8 +61,8 @@ private:
 
 	struct Ball {
 		Vector2 position{};
-		BallState ballState = STABLE;
-		BallKind ballKind = a;
+		BallState ballState = STABLE;//èÛë‘
+		BallKind ballKind = a;//éÌóﬁ
 		int costs = 1;
 		UINT32 color = WHITE;
 		bool isActive = false;

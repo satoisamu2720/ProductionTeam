@@ -18,6 +18,7 @@ void Player::Updata() {
 
 	//
 	Move();
+	CheckSafety();
 }
 
 void Player::Draw() {
@@ -119,5 +120,56 @@ void Player::RollBack() {
 }
 
 void Player::CheckSafety() {
-
+	for (int i = 0; i < 100; i++){
+		if (ball[i].isActive) {
+			if (m->map[int(ball[i].position.y)][int(ball[i].position.x) - 1] == m->BORDER) {
+				ball[i].ballState = STABLE;
+				ball[i].color = WHITE;
+			}
+			else if (m->map[int(ball[i].position.y)][int(ball[i].position.x) + 1] == m->BORDER) {
+				ball[i].ballState = STABLE;
+				ball[i].color = WHITE;
+			}
+			else if (m->map[int(ball[i].position.y) - 1][int(ball[i].position.x)] == m->BORDER) {
+				ball[i].ballState = STABLE;
+				ball[i].color = WHITE;
+			}
+			else if (m->map[int(ball[i].position.y) + 1][int(ball[i].position.x)] == m->BORDER) {
+				ball[i].ballState = STABLE;
+				ball[i].color = WHITE;
+			}
+			else if (ball[i - 1].ballState == UNSTABLE || ball[i - 1].ballState == DANGER) {
+				ball[i].ballState = DANGER;
+				ball[i].color = RED;
+			}
+			else {
+				ball[i].ballState = UNSTABLE;
+				ball[i].color = 0xff9999ff;
+			}
+		}
+	}
 }
+//void Player::CheckSafety() {
+//	if (ball[kCount].isActive) {
+//		if (m->map[int(ball[kCount].position.y)][int(ball[kCount].position.x) - 1] == m->BORDER) {
+//			ball[kCount].ballState = STABLE;
+//			ball[kCount].color = WHITE;
+//		}
+//		else if (m->map[int(ball[kCount].position.y)][int(ball[kCount].position.x) + 1] == m->BORDER) {
+//			ball[kCount].ballState = STABLE;
+//			ball[kCount].color = WHITE;
+//		}
+//		else if (m->map[int(ball[kCount].position.y) - 1][int(ball[kCount].position.x)] == m->BORDER) {
+//			ball[kCount].ballState = STABLE;
+//			ball[kCount].color = WHITE;
+//		}
+//		else if (m->map[int(ball[kCount].position.y) + 1][int(ball[kCount].position.x)] == m->BORDER) {
+//			ball[kCount].ballState = STABLE;
+//			ball[kCount].color = WHITE;
+//		}
+//		else {
+//			ball[kCount].ballState = UNSTABLE;
+//			ball[kCount].color = 0xff9999ff;
+//		}
+//	}
+//}
