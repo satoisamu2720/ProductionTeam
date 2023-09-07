@@ -76,7 +76,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	enum MapInfo {
 		NONE,// 0
 		SETPOINT,//1置ける場所
-		BLOCKTILE,//3ブロックタイル
+		BLOCKTILE,//2ブロックタイル
 		BORDER,//3マップ境界線
 	};
 	int Blocka = Novice::LoadTexture("./NoviceResources/blocka.png");//ブロック
@@ -122,7 +122,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			
 		}
 
-		if (keys[DIK_DOWN] && preKeys[DIK_DOWN]&& RedBallY <= 9) {//下を押したら
+		else if (keys[DIK_DOWN] && preKeys[DIK_DOWN]&& RedBallY <= 9) {//下を押したら
 			
 				SelectTimer--;//タイマー開始
 				if (BallPoint[RedBallY + 1][RedBallX] == NONEBALL && SelectTimer <= 0) {//ボールの位置+1へないことを確認
@@ -135,7 +135,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				}
 			
 		}
-		if (keys[DIK_RIGHT] && preKeys[DIK_RIGHT]  && RedBallX <= 10) {//右を押したら
+		else if (keys[DIK_RIGHT] && preKeys[DIK_RIGHT]  && RedBallX <= 10) {//右を押したら
 			
 				SelectTimer--;//タイマー開始
 				if (BallPoint[RedBallY][RedBallX + 1] == NONEBALL && SelectTimer <= 0) {//ボールの位置+1へないことを確認
@@ -148,7 +148,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				}
 			
 		}
-		if (keys[DIK_LEFT] && preKeys[DIK_LEFT] && RedBallX >= 2) {//左を押したら
+		else if (keys[DIK_LEFT] && preKeys[DIK_LEFT] && RedBallX >= 2) {//左を押したら
 			
 				SelectTimer--;//タイマー開始
 				if (BallPoint[RedBallY][RedBallX - 1] == NONEBALL && SelectTimer <= 0) {//ボールの位置-1へないことを確認
