@@ -32,6 +32,7 @@ void Player::Move() {
 	switch (mp)
 	{
 	case Player::NORMAL:
+		RollBack();//ˆêè‘O‚Ö–ß‚é
 		SetPlayer();
 		//if (keys[DIK_UP] && preKeys[DIK_UP] && SelectTimer <= 0 && m->map[int(pos.y - 1)][int(pos.x)] != m->BORDER) {//ã‚ğ‰Ÿ‚µ‚½‚ç
 		//	SelectTimer = 10;
@@ -51,7 +52,6 @@ void Player::Move() {
 		//}
 		break;
 	case Player::SETMODE:
-		RollBack();//ˆêè‘O‚Ö–ß‚é
 		if (moveCount < moveMax) {
 			if (keys[DIK_UP] && preKeys[DIK_UP] && SelectTimer <= 0 && m->map[int(pos.y - 1)][int(pos.x)] != m->BORDER) {//ã‚ğ‰Ÿ‚µ‚½‚ç
 				SelectTimer = 10;
@@ -104,7 +104,7 @@ void Player::FixPlayer() {
 }
 
 void Player::RollBack() {
-	if (keys[DIK_RETURN] && !preKeys[DIK_RETURN]) {
+	if (keys[DIK_RETURN] && !preKeys[DIK_RETURN] && kCount>=1) {
 		kCount -= 1;
 		pos.x = kPos[kCount].x /64;
 		pos.y = kPos[kCount].y /64;
