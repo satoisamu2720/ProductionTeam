@@ -26,7 +26,9 @@ private:
 	int RedBall = Novice::LoadTexture("./NoviceResources/RedBall.png");//É{Å[Éã = 1
 
 	Vector2 pos{1,10};
-	Vector2 kPos{};
+	Vector2 kPos[100]{};
+
+	int kCount = 0;
 
 	int moveCount = 0;
 	int moveMax = 2;
