@@ -7,18 +7,18 @@ class Player
 public:
 	void Initialize();
 
-	void Updata(char keys[],char preKeys[]);
+	void Updata();
 
 	void Draw();
 
-	void Move(char keys[], char preKeys[]);
+	void Move();
 
-	void SetPlayer(char keys[], char preKeys[]);
+	void SetPlayer();
 
 	Vector2 GetPosition();
 private:
-	//char keys[356] = {};
-	//char preKeys[356] = {};
+	char keys[356] = {};
+	char preKeys[356] = {};
 
 	int RedBall = Novice::LoadTexture("./NoviceResources/RedBall.png");//É{Å[Éã = 1
 

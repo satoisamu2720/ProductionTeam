@@ -24,13 +24,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		Novice::BeginFrame();
 
 		// キー入力を受け取る
-		memcpy(preKeys, keys, 356);
-		Novice::GetHitKeyStateAll(keys);
+		//memcpy(preKeys, keys, 356);
+		//Novice::GetHitKeyStateAll(keys);
 
 		///
 		/// ↓更新処理ここから
 		///
-		player->Updata(keys,preKeys);
+		player->Updata();
 		///
 		/// ↑更新処理ここまで
 		///
