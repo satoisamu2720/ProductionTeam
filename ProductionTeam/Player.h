@@ -12,6 +12,7 @@ public:
 
 	void Draw();
 
+private:
 	void Move();
 
 	void SetPlayer();
@@ -46,4 +47,3 @@ private:
 	};
 	movePattern mp = NORMAL;
 };
-
