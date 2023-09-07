@@ -102,13 +102,6 @@ void Player::SetPlayer() {
 	}
 }
 
-void Player::FixPlayer() {
-	if (keys[DIK_SPACE] && !preKeys[DIK_SPACE]) {
-		isSet = false;
-		mp = NORMAL;
-	}
-}
-
 void Player::RollBack() {
 	if (keys[DIK_RETURN] && !preKeys[DIK_RETURN] && kCount>=1) {
 		kCount -= 1;
@@ -149,27 +142,3 @@ void Player::CheckSafety() {
 		}
 	}
 }
-//void Player::CheckSafety() {
-//	if (ball[kCount].isActive) {
-//		if (m->map[int(ball[kCount].position.y)][int(ball[kCount].position.x) - 1] == m->BORDER) {
-//			ball[kCount].ballState = STABLE;
-//			ball[kCount].color = WHITE;
-//		}
-//		else if (m->map[int(ball[kCount].position.y)][int(ball[kCount].position.x) + 1] == m->BORDER) {
-//			ball[kCount].ballState = STABLE;
-//			ball[kCount].color = WHITE;
-//		}
-//		else if (m->map[int(ball[kCount].position.y) - 1][int(ball[kCount].position.x)] == m->BORDER) {
-//			ball[kCount].ballState = STABLE;
-//			ball[kCount].color = WHITE;
-//		}
-//		else if (m->map[int(ball[kCount].position.y) + 1][int(ball[kCount].position.x)] == m->BORDER) {
-//			ball[kCount].ballState = STABLE;
-//			ball[kCount].color = WHITE;
-//		}
-//		else {
-//			ball[kCount].ballState = UNSTABLE;
-//			ball[kCount].color = 0xff9999ff;
-//		}
-//	}
-//}
