@@ -117,3 +117,7 @@ void Player::RollBack() {
 		ball[kCount].isActive = false;
 	}
 }
+
+void Player::CheckSafety() {
+
+}

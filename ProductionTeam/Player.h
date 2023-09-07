@@ -19,6 +19,8 @@ private:
 	void FixPlayer();
 	void RollBack();
 
+	void CheckSafety();
+
 private:
 	char keys[356] = {};
 	char preKeys[356] = {};
@@ -51,9 +53,17 @@ private:
 		DANGER,
 	};
 
+	enum BallKind {
+		a,
+		b,
+		c,
+	};
+
 	struct Ball {
 		Vector2 position{};
 		BallState ballState = STABLE;
+		BallKind ballKind = a;
+		int costs = 1;
 		UINT32 color = WHITE;
 		bool isActive = false;
 	};
