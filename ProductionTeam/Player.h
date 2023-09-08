@@ -35,7 +35,7 @@ private:
 
 	int moveCount = 0;
 	int moveMax = 2;
-
+	int Goalcost = 0;
 	bool isSet = false;
 	//ブロックサイズの設定
 	const int kBlocksize = 64;

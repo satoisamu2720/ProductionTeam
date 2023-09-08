@@ -27,12 +27,19 @@ void Player::Draw() {
 	else {
 		Novice::DrawBox(0, 0, 1380, 768, 0.0f, 0xffccccff, kFillModeSolid);
 	}
+
 	Novice::DrawSprite(int(pos.x) * kBlocksize, int(pos.y) * kBlocksize, RedBall, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+	
+	if ( Goalcost <= 16) {
+		Novice::DrawEllipse(18.5 * kBlocksize, 2.5 * kBlocksize, 32, 32, 0.0f, BLACK, kFillModeSolid);//仮ボール
+	}
+	Novice::ScreenPrintf(30, 30, "Goalcost  %d ", Goalcost);
 	for (int i = 0; i < 100; i++) {
 		if (ball[i].isActive) {
 			Novice::DrawEllipse(int(ball[i].position.x)*64 + 32, int(ball[i].position.y)*64 + 32, 16, 16, 0.0f, ball[i].color, kFillModeSolid);//仮ボール
 		}
 	}
+	
 }
 
 void Player::Move() {
@@ -88,6 +95,7 @@ void Player::Move() {
 		}
 		break;
 	}
+	
 }
 
 void Player::SetPlayer() {
@@ -95,9 +103,9 @@ void Player::SetPlayer() {
 		ball[kCount].position = pos;
 		isSet = true;
 		ball[kCount].isActive = true;
-		mp = SETMODE;
-
+		Goalcost += ball[kCount].costs;
 		kCount += 1;
+		mp = SETMODE;
 	}
 }
 
@@ -111,7 +119,7 @@ void Player::FixPlayer() {
 void Player::RollBack() {
 	if (keys[DIK_RETURN] && !preKeys[DIK_RETURN] && kCount>=1) {
 		kCount -= 1;
-
+		Goalcost -= ball[kCount].costs;
 		pos = ball[kCount].position;
 		ball[kCount].position = {};
 		ball[kCount].isActive = false;

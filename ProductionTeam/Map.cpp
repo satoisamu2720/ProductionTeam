@@ -6,7 +6,7 @@ void Map::Initialize() {
 
 void Map::Draw() {
 	for (int i = 0; i < 12; i++) {
-		for (int j = 0; j < 13; j++) {
+		for (int j = 0; j < 20; j++) {
 			if (map[i][j] == BORDER) {//マップブロック描画
 				Novice::DrawSprite(j * kBlocksize, i * kBlocksize, Blocka, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
 			}
