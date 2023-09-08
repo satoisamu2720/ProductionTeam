@@ -113,7 +113,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				getline(line_stream, word, ',');
 				int y = (int)std::atoi(word.c_str());
 
-				map[x][y];
+				if (map[x][y] == BORDER) {//マップブロック描画
+					Novice::DrawSprite(x * kBlocksize, y * kBlocksize, Blocka, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+				}
+
 				break;
 			}
 
