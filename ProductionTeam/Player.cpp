@@ -1,4 +1,4 @@
-#include "Player.h"
+ï»¿#include "Player.h"
 
 void Player::Initialize() {
 	for (int i = 0; i < 100; i++) {
@@ -10,11 +10,11 @@ void Player::Initialize() {
 }
 
 void Player::Updata() {
-	//ƒL[ó‚¯æ‚è
+	//ã‚­ãƒ¼å—ã‘å–ã‚Š
 	memcpy(preKeys, keys, 356);
 	Novice::GetHitKeyStateAll(keys);
 
-	SelectTimer--;//ƒ^ƒCƒ}[ŠJn
+	SelectTimer--;//ã‚¿ã‚¤ãƒãƒ¼é–‹å§‹
 
 	//
 	Move();
@@ -31,12 +31,12 @@ void Player::Draw() {
 	Novice::DrawSprite(int(pos.x) * kBlocksize, int(pos.y) * kBlocksize, RedBall, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
 	
 	if ( Goalcost <= 16) {
-		Novice::DrawEllipse(18.5 * kBlocksize, 2.5 * kBlocksize, 32, 32, 0.0f, BLACK, kFillModeSolid);//‰¼ƒ{[ƒ‹
+		Novice::DrawEllipse(18 * kBlocksize, 2 * kBlocksize, 32, 32, 0.0f, BLACK, kFillModeSolid);//ä»®ãƒœãƒ¼ãƒ«
 	}
 	Novice::ScreenPrintf(30, 30, "Goalcost  %d ", Goalcost);
 	for (int i = 0; i < 100; i++) {
 		if (ball[i].isActive) {
-			Novice::DrawEllipse(int(ball[i].position.x)*64 + 32, int(ball[i].position.y)*64 + 32, 16, 16, 0.0f, ball[i].color, kFillModeSolid);//‰¼ƒ{[ƒ‹
+			Novice::DrawEllipse(int(ball[i].position.x)*64 + 32, int(ball[i].position.y)*64 + 32, 16, 16, 0.0f, ball[i].color, kFillModeSolid);//ä»®ãƒœãƒ¼ãƒ«
 		}
 	}
 	
@@ -46,43 +46,64 @@ void Player::Move() {
 	switch (mp)
 	{
 	case Player::NORMAL:
-		RollBack();//ˆêè‘O‚Ö–ß‚é
+		RollBack();//ä¸€æ‰‹å‰ã¸æˆ»ã‚‹
 		SetPlayer();
-		//if (keys[DIK_UP] && preKeys[DIK_UP] && SelectTimer <= 0 && m->map[int(pos.y - 1)][int(pos.x)] != m->BORDER) {//ã‚ğ‰Ÿ‚µ‚½‚ç
-		//	SelectTimer = 10;
-		//	pos.y -= 1;
-		//}
-		//else if (keys[DIK_DOWN] && SelectTimer <= 0 && preKeys[DIK_DOWN] && m->map[int(pos.y + 1)][int(pos.x)] != m->BORDER) {//‰º‚ğ‰Ÿ‚µ‚½‚ç
-		//	SelectTimer = 10;
-		//	pos.y += 1;
-		//}
-		//else if (keys[DIK_RIGHT] && SelectTimer <= 0 && preKeys[DIK_RIGHT] && m->map[int(pos.y)][int(pos.x + 1)] != m->BORDER) {//‰E‚ğ‰Ÿ‚µ‚½‚ç
-		//	SelectTimer = 10;
-		//	pos.x += 1;
-		//}
-		//else if (keys[DIK_LEFT] && SelectTimer <= 0 && preKeys[DIK_LEFT] && m->map[int(pos.y)][int(pos.x - 1)] != m->BORDER) {//¶‚ğ‰Ÿ‚µ‚½‚ç
-		//	SelectTimer = 10;
-		//	pos.x -= 1;
-		//}
+		m->HitJudgment();
+
+		/*if (keys[DIK_W]) {
+			Map.rightTopY = (Pos.y - Pos.speedTmp - Pos.size - 1) / kBlocksize;
+			Map.leftTopY = (Pos.y - Pos.speedTmp - 1) / kBlocksize;
+
+			if (map[Map.leftTopY][Map.leftTopX] == NONE && map[Map.leftBottomY][Map.leftBottomX] == NONE) {
+				speedy = -8;
+
+			}
+		}
+		if (keys[DIK_S]) {
+			Map.leftBottomY = (Pos.y + Pos.speedTmp + Pos.size) / kBlocksize;
+			Map.rightBottomY = (Pos.y + Pos.speedTmp + Pos.size) / kBlocksize;
+
+			if (map[Map.leftTopY][Map.leftTopX] == NONE && map[Map.leftBottomY][Map.leftBottomX] == NONE) {
+				Pos.speedy = +8;
+			}
+		}*/
+		if (keys[DIK_UP] && preKeys[DIK_UP] && m->map[m->MapHit.leftTopY][m->MapHit.leftTopX] != m->NONE && m->map[m->MapHit.leftBottomY][m->MapHit.leftBottomX] != m->NONE) {//ä¸Šã‚’æŠ¼ã—ãŸã‚‰
+			speedy = -8;
+		}
+		else if (keys[DIK_DOWN] && SelectTimer <= 0 && preKeys[DIK_DOWN] && m->map[int(pos.y + 1)][int(pos.x)] != m->BORDER) {//ä¸‹ã‚’æŠ¼ã—ãŸã‚‰
+			SelectTimer = 10;
+			pos.y += 1;
+		}
+		else if (keys[DIK_RIGHT] && SelectTimer <= 0 && preKeys[DIK_RIGHT] && m->map[int(pos.y)][int(pos.x + 1)] != m->BORDER) {//å³ã‚’æŠ¼ã—ãŸã‚‰
+			SelectTimer = 10;
+			pos.x += 1;
+		}
+		else if (keys[DIK_LEFT] && SelectTimer <= 0 && preKeys[DIK_LEFT] && m->map[int(pos.y)][int(pos.x - 1)] != m->BORDER) {//å·¦ã‚’æŠ¼ã—ãŸã‚‰
+			SelectTimer = 10;
+			pos.x -= 1;
+		}
+
+		pos.x += speedx;
+		pos.y += speedy;
 		break;
 	case Player::SETMODE:
 		if (moveCount < moveMax) {
-			if (keys[DIK_UP] && preKeys[DIK_UP] && SelectTimer <= 0 && m->map[int(pos.y - 1)][int(pos.x)] != m->BORDER) {//ã‚ğ‰Ÿ‚µ‚½‚ç
+			if (keys[DIK_UP] && preKeys[DIK_UP] && SelectTimer <= 0 && m->map[int(pos.y - 1)][int(pos.x)] != m->BORDER) {//ä¸Šã‚’æŠ¼ã—ãŸã‚‰
 				SelectTimer = 10;
 				moveCount += 1;
 				pos.y -= 1;
 			}
-			else if (keys[DIK_DOWN] && SelectTimer <= 0 && preKeys[DIK_DOWN] && m->map[int(pos.y + 1)][int(pos.x)] != m->BORDER) {//‰º‚ğ‰Ÿ‚µ‚½‚ç
+			else if (keys[DIK_DOWN] && SelectTimer <= 0 && preKeys[DIK_DOWN] && m->map[int(pos.y + 1)][int(pos.x)] != m->BORDER) {//ä¸‹ã‚’æŠ¼ã—ãŸã‚‰
 				SelectTimer = 10;
 				moveCount += 1;
 				pos.y += 1;
 			}
-			else if (keys[DIK_RIGHT] && SelectTimer <= 0 && preKeys[DIK_RIGHT] && m->map[int(pos.y)][int(pos.x + 1)] != m->BORDER) {//‰E‚ğ‰Ÿ‚µ‚½‚ç
+			else if (keys[DIK_RIGHT] && SelectTimer <= 0 && preKeys[DIK_RIGHT] && m->map[int(pos.y)][int(pos.x + 1)] != m->BORDER) {//å³ã‚’æŠ¼ã—ãŸã‚‰
 				SelectTimer = 10;
 				moveCount += 1;
 				pos.x += 1;
 			}
-			else if (keys[DIK_LEFT] && SelectTimer <= 0 && preKeys[DIK_LEFT] && m->map[int(pos.y)][int(pos.x - 1)] != m->BORDER) {//¶‚ğ‰Ÿ‚µ‚½‚ç
+			else if (keys[DIK_LEFT] && SelectTimer <= 0 && preKeys[DIK_LEFT] && m->map[int(pos.y)][int(pos.x - 1)] != m->BORDER) {//å·¦ã‚’æŠ¼ã—ãŸã‚‰
 				SelectTimer = 10;
 				moveCount += 1;
 				pos.x -= 1;
