@@ -1,4 +1,8 @@
 #include <Novice.h>
+#include <list>
+#include <sstream>
+#include <fstream>
+#include <cassert>
 
 const char kWindowTitle[] = "サルノ橋";
 
@@ -12,24 +16,25 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	char keys[356] = {0};
 	char preKeys[356] = {0};
 
+	int map[10][10] = {
+
+	};
+
+	std::stringstream blockPopCommands;
+
+	std::ifstream file;
+	file.open("./blockPop.csv");
+	assert(file.is_open());
+	blockPopCommands << file.rdbuf();
+	file.close();
+
 	//ブロックサイズの設定
 	const int kBlocksize = 64;
 	int RedBallX = 1; //赤ボールのX座標
 	int RedBallY = 1; //赤ボールのY座標
 	int SelectTimer = 1;//セット時長押し用タイマー
 	//int BallSetTimer = 30;//赤ボールをセットした時に動かす(連打防止)
-	int map[10][10] = {
-		{3,3,3,3,3,3,3,3,3,3},
-		{3,0,0,0,0,0,0,0,0,3},
-		{3,0,0,0,0,0,0,0,0,3},
-		{3,0,0,0,0,0,0,0,0,3},
-		{3,0,0,0,0,0,0,0,0,3},
-		{3,0,0,0,0,0,0,0,0,3},
-		{3,0,0,0,0,0,0,0,0,3},
-		{3,0,0,0,0,0,0,0,0,3},
-		{3,0,0,0,0,0,0,0,0,3},
-		{3,3,3,3,3,3,3,3,3,3}
-	};
+	
 	int BallPointer[10][10] = { //ボール設置可能地点
 		{0,0,0,0,0,0,0,0,0,0},
 		{0,1,1,1,1,1,1,1,1,0},
@@ -89,6 +94,31 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		///
 		/// ↓更新処理ここから
 		///
+		 
+		std::string line;
+		while (getline(blockPopCommands, line)) {
+			std::istringstream line_stream(line);
+
+			std::string word;
+
+			getline(line_stream, word, ',');
+
+			if (word.find("//") == 0) {
+				continue;
+			}
+			else if (word.find("POP") == 0) {
+				getline(line_stream, word, ',');
+				int x = (int)std::atoi(word.c_str());
+
+				getline(line_stream, word, ',');
+				int y = (int)std::atoi(word.c_str());
+
+				map[x][y];
+				break;
+			}
+
+		}
+		
 		if (keys[DIK_D] && preKeys[DIK_D]) {
 			RedBallX += 1;
 		}
