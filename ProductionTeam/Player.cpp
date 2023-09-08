@@ -43,45 +43,55 @@ void Player::Move() {
 	case Player::NORMAL:
 		RollBack();//一手前へ戻る
 		SetPlayer();
-		if (keys[DIK_UP] && preKeys[DIK_UP] && SelectTimer <= 0 && m->map[int(pos.y - 1)][int(pos.x)] != m->BORDER) {//上を押したら
+		if (keys[DIK_UP] && preKeys[DIK_UP] && SelectTimer <= 0 && m->map[int(pos.y / kBlocksize)][int(pos.x / kBlocksize)] != m->BORDER) {//上を押したら
 			pos.y -= 1;
+			if (m->map[int(pos.y / kBlocksize)][int(pos.x / kBlocksize)] == m->BORDER) {
+				pos.y = int(pos.y / kBlocksize) * kBlocksize + kBlocksize;
+			}
 		}
-		if (keys[DIK_DOWN] && SelectTimer <= 0 && preKeys[DIK_DOWN] && m->map[int(pos.y + 1)][int(pos.x)] != m->BORDER) {//下を押したら
+		if (keys[DIK_DOWN] && SelectTimer <= 0 && preKeys[DIK_DOWN] && m->map[int((pos.y / kBlocksize) + 1)][int(pos.x / kBlocksize)] != m->BORDER) {//下を押したら
 			pos.y += 1;
 		}
-		if (keys[DIK_RIGHT] && SelectTimer <= 0 && preKeys[DIK_RIGHT] && m->map[int(pos.y)][int(pos.x + 1)] != m->BORDER) {//右を押したら
+		if (keys[DIK_RIGHT] && SelectTimer <= 0 && preKeys[DIK_RIGHT] && m->map[int(pos.y / kBlocksize)][int((pos.x / kBlocksize) + 1)] != m->BORDER) {//右を押したら
 			pos.x += 1;
 		}
-		if (keys[DIK_LEFT] && SelectTimer <= 0 && preKeys[DIK_LEFT] && m->map[int(pos.y)][int(pos.x - 1)] != m->BORDER) {//左を押したら
+		if (keys[DIK_LEFT] && SelectTimer <= 0 && preKeys[DIK_LEFT] && m->map[int(pos.y / kBlocksize)][int(pos.x / kBlocksize)] != m->BORDER) {//左を押したら
 			pos.x -= 1;
+			if (m->map[int(pos.y / kBlocksize)][int(pos.x / kBlocksize)] == m->BORDER) {
+				pos.x = int(pos.x / kBlocksize) * kBlocksize + kBlocksize;
+			}
 		}
 		break;
 	case Player::SETMODE:
-		if (moveCount < moveMax) {
-			if (keys[DIK_UP] && preKeys[DIK_UP] && SelectTimer <= 0 && m->map[int(pos.y - 1)][int(pos.x)] != m->BORDER) {//上を押したら
-				moveCount += 1;
-				pos.y -= 1;
-			}
-			if (keys[DIK_DOWN] && SelectTimer <= 0 && preKeys[DIK_DOWN] && m->map[int(pos.y + 1)][int(pos.x)] != m->BORDER) {//下を押したら
-				moveCount += 1;
-				pos.y += 1;
-			}
-			if (keys[DIK_RIGHT] && SelectTimer <= 0 && preKeys[DIK_RIGHT] && m->map[int(pos.y)][int(pos.x + 1)] != m->BORDER) {//右を押したら
-				moveCount += 1;
-				pos.x += 1;
-			}
-			if (keys[DIK_LEFT] && SelectTimer <= 0 && preKeys[DIK_LEFT] && m->map[int(pos.y)][int(pos.x - 1)] != m->BORDER) {//左を押したら
-				moveCount += 1;
-				pos.x -= 1;
+		if (keys[DIK_UP] && preKeys[DIK_UP] && SelectTimer <= 0 && m->map[int(pos.y / kBlocksize)][int(pos.x / kBlocksize)] != m->BORDER) {//上を押したら
+			pos.y -= 1;
+			if (m->map[int(pos.y / kBlocksize)][int(pos.x / kBlocksize)] == m->BORDER) {
+				pos.y = int(pos.y / kBlocksize) * kBlocksize + kBlocksize;
 			}
 		}
-		if (moveCount >= 1 && keys[DIK_SPACE] && !preKeys[DIK_SPACE]) {
+		if (keys[DIK_DOWN] && SelectTimer <= 0 && preKeys[DIK_DOWN] && m->map[int((pos.y / kBlocksize) + 1)][int(pos.x / kBlocksize)] != m->BORDER) {//下を押したら
+			pos.y += 1;
+		}
+		if (keys[DIK_RIGHT] && SelectTimer <= 0 && preKeys[DIK_RIGHT] && m->map[int(pos.y / kBlocksize)][int((pos.x / kBlocksize) + 1)] != m->BORDER) {//右を押したら
+			pos.x += 1;
+		}
+		if (keys[DIK_LEFT] && SelectTimer <= 0 && preKeys[DIK_LEFT] && m->map[int(pos.y / kBlocksize)][int(pos.x / kBlocksize)] != m->BORDER) {//左を押したら
+			pos.x -= 1;
+			if (m->map[int(pos.y / kBlocksize)][int(pos.x / kBlocksize)] == m->BORDER) {
+				pos.x = int(pos.x / kBlocksize) * kBlocksize + kBlocksize;
+			}
+		}
+		if (keys[DIK_SPACE] && !preKeys[DIK_SPACE]) {
 			moveCount = 0;
 			isSet = false;
 			mp = NORMAL;
 		}
 		break;
 	}
+}
+
+void Player::MoveLimit() {
+
 }
 
 void Player::SetPlayer() {

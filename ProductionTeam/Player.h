@@ -14,6 +14,7 @@ public:
 
 private:
 	void Move();
+	void MoveLimit();
 
 	void SetPlayer();
 	void FixPlayer();
