@@ -2,12 +2,14 @@
 #include "sceneManager.h"
 
 const char kWindowTitle[] = "サルノ橋";
+int kWindowWidth = 1380;
+int kWindowHeight = 768;
 
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	// ライブラリの初期化
-	Novice::Initialize(kWindowTitle, 1380, 768);
+	Novice::Initialize(kWindowTitle, kWindowWidth, kWindowHeight);
 
 	//
 	sceneManager* sceneM = new sceneManager;

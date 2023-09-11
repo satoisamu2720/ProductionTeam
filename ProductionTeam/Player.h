@@ -2,6 +2,7 @@
 #include <Novice.h>
 #include "Vector2.h"
 #include "Map.h"
+#include"ALVector.h"
 
 class Player
 {
@@ -26,21 +27,29 @@ private:
 private:
 	char keys[356] = {};
 	char preKeys[356] = {};
+	int kWindowWidth = 1380;
+	int kWindowHeight = 768;
+
+	int playerVX = 0;
+	int playerVY = 0;
 
 	Map* m = new Map;
 
 	int RedBall = Novice::LoadTexture("./NoviceResources/RedBall.png");//ボール = 1
 
-	Vector2 pos{1*64,9*64};
+	Vector2 pos{-1*kBlocksize,9*kBlocksize};
 
 	int kCount = 0;
 
 	int moveCount = 0;
 	int moveMax = 100;
 
+	float moveDenominator = 1200000;
+
 	bool isSet = false;
 	//ブロックサイズの設定
-	const int kBlocksize = 64;
+	//const int kBlocksize = 64;
+	const float kBlocksize = 0.42f;
 
 	int SelectTimer = 0;//セット時長押し用タイマー
 
@@ -68,6 +77,7 @@ private:
 		int costs = 1;
 		UINT32 color = WHITE;
 		bool isActive = false;
+		int radius = 16;
 	};
 	Ball ball[100] = {};
 

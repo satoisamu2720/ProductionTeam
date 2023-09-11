@@ -1,5 +1,6 @@
 #pragma once
 #include <Novice.h>
+#include"ALVector.h"
 
 class Map
 {
@@ -25,7 +26,7 @@ public:
 	};*/
 
 	int map[12][20]{
-		{3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3},
+{3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3},
 {3,0,0,0,0,3,3,0,0,0,0,0,0,0,0,0,0,0,0,3},
 {3,0,0,0,0,3,3,0,0,0,0,0,0,0,0,0,0,0,0,3},
 {3,0,0,0,0,3,3,0,0,0,0,0,0,0,0,0,0,3,3,3},
@@ -44,10 +45,17 @@ public:
 		BLOCKTILE,//2ブロックタイル
 		BORDER,//3マップ境界線
 	};
+
 private:
-	const int kBlocksize = 64;//
+	//const int kBlocksize = 64;//
 
 	int Blocka = Novice::LoadTexture("./NoviceResources/blocka.png");//ブロック
 	int waku = Novice::LoadTexture("./NoviceResources/waku.png");//ブロック
+	int kblockNumberX = 20;
+	int kblockNumberY = 12;
+	const float kBlocksize = 0.42f;
+	int kWindowWidth = 1380;
+	int kWindowHeight = 768;
+
 
 };
