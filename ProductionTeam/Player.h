@@ -32,7 +32,7 @@ private:
 
 	int RedBall = Novice::LoadTexture("./NoviceResources/RedBall.png");//É{Å[Éã = 1
 
-	Vector2 pos{1*64,9*64};
+	Vector2 pos{1.0f* kBlocksize,9.0f*kBlocksize};
 	Vector2 delta{};
 
 	int leftx = 0;
@@ -82,7 +82,7 @@ private:
 		Vector2 center{};
 		int radius = 16;
 		int fallTimer = 300;
-		int fallTimerMax = 300;
+		int fallTimerMax = 240;
 	};
 	Ball ball[100] = {};
 

@@ -1,11 +1,13 @@
 #include "Player.h"
 
 void Player::Initialize() {
+	pos = { 1.0f * kBlocksize,9.0f * kBlocksize };
 	for (int i = 0; i < 100; i++) {
 		ball[i].position = {0,0};
 		ball[i].ballState = NEUTRAL;
 		ball[i].isActive = false;
 		ball[i].color = 0x00000000;
+		ball[i].fallTimer = ball[i].fallTimerMax;
 	}
 }
 
@@ -176,7 +178,14 @@ void Player::CheckSafety() {
 						{
 							ball[i].ballState = STABLE;
 							ball[i].color = WHITE;
-						}
+
+							if (ball[i - 1].ballState == DANGER) {
+								ball[i - 1].ballState = UNSTABLE;
+								ball[i - 1].color = 0xff9999ff;
+								ball[i - 1].fallTimer = ball[i].fallTimerMax;
+							}
+						};
+
 					}
 					else if (ball[i - 1].ballState == UNSTABLE || ball[i - 1].ballState == DANGER)
 					{
@@ -184,18 +193,12 @@ void Player::CheckSafety() {
 						{
 							ball[i].ballState = DANGER;
 							ball[i].color = RED;
-							ball[i].fallTimer = ball[i].fallTimerMax;
 						}
 					}
 					else if (ball[i].ballState != STABLE)
 					{
 						ball[i].ballState = UNSTABLE;
 						ball[i].color = 0xff9999ff;
-					}
-					else if (ball[i].ballState == DANGER && ball[i + 1].ballState == STABLE) {
-						ball[i].ballState = UNSTABLE;
-						ball[i].color = 0xff9999ff;
-						ball[i].fallTimer = ball[i].fallTimerMax;
 					}
 				}
 			}
@@ -207,28 +210,32 @@ void Player::FallBlock()
 {
 	for (int i = 0; i < 100; i++)
 	{
+		if (ball[i].ballState == DANGER)
+		{
+			ball[i].fallTimer--;
+		}
 		if (kCount < i && ball[kCount+1].isActive == false)
 		{
 			ball[i].position = {};
 			ball[i].isActive = false;
 			ball[i].ballState = NEUTRAL;
 			ball[i].color = 0x00000000;
-		}
-		if (ball[i].ballState == DANGER)
-		{
-			ball[i].fallTimer--;
-			if (ball[i].fallTimer <= 0)
-			{
-				kCount = i - 1;
+			ball[i].fallTimer = ball[i].fallTimerMax;
 
-				pos = ball[kCount].position;
-				ball[i].position = {};
-				ball[i].isActive = false;
-				ball[i].fallTimer = ball[i].fallTimerMax;
-				ball[i].ballState = NEUTRAL;
-				ball[i].color = 0x00000000;
-			}
 		}
+		if (ball[i].fallTimer <= 0)
+		{
+			kCount = i - 1; 
+			isSet = true;
+			mp = SETMODE;
+			pos = ball[kCount].position;
+			ball[i].position = {};
+			ball[i].isActive = false;
+			ball[i].fallTimer = ball[i].fallTimerMax;
+			ball[i].ballState = NEUTRAL;
+			ball[i].color = 0x00000000;
+		}
+		
 	}
 }
 
