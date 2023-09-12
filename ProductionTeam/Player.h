@@ -53,6 +53,7 @@ private:
 	//ブロックサイズの設定
 	const int kBlocksize = 64;
 
+	int settime = 30;
 
 	enum movePattern {
 		NORMAL,

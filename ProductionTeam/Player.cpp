@@ -16,6 +16,7 @@ void Player::Updata() {
 	Novice::GetAnalogInputLeft(0, &leftx, &lefty);
 	Novice::GetAnalogInputRight(0, &rightx, &righty);
 
+	settime--;
 	//
 	Move();
 	ballUpdata();
@@ -107,8 +108,9 @@ void Player::Move() {
 			}
 		}
 		MoveLimit();
-		if (Novice::IsPressButton(0, kPadButton10)||keys[DIK_SPACE] && !preKeys[DIK_SPACE] && moveCount <= 10 &&(pos.x!=ball[kCount].position.x || pos.y != ball[kCount].position.y)) {
+		if (Novice::IsTriggerButton(0, kPadButton10)||keys[DIK_SPACE] && !preKeys[DIK_SPACE] && settime <= 0 &&(pos.x!=ball[kCount].position.x || pos.y != ball[kCount].position.y)) {
 			moveCount = 0;
+			settime = 30;
 			isSet = false;
 			kCount += 1;
 			mp = NORMAL;
