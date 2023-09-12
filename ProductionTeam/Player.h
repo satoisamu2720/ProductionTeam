@@ -21,7 +21,7 @@ private:
 	void RollBack();
 
 	void CheckSafety();
-
+	void FallBlock();
 	void ballUpdata();
 
 private:
@@ -74,13 +74,15 @@ private:
 
 	struct Ball {
 		Vector2 position{};
-		BallState ballState = STABLE;//èÛë‘
+		BallState ballState = NEUTRAL;//èÛë‘
 		BallKind ballKind = a;//éÌóﬁ
 		int costs = 1;
 		UINT32 color = WHITE;
 		bool isActive = false;
 		Vector2 center{};
 		int radius = 16;
+		int fallTimer = 300;
+		int fallTimerMax = 300;
 	};
 	Ball ball[100] = {};
 

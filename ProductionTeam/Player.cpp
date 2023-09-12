@@ -5,7 +5,7 @@ void Player::Initialize() {
 		ball[i].position = {0,0};
 		ball[i].ballState = NEUTRAL;
 		ball[i].isActive = false;
-		ball[i].color = WHITE;
+		ball[i].color = 0x00000000;
 	}
 }
 
@@ -20,6 +20,8 @@ void Player::Updata() {
 	Move();
 	ballUpdata();
 	CheckSafety();
+	FallBlock();
+
 }
 
 void Player::Draw() {
@@ -42,13 +44,13 @@ void Player::Draw() {
 		Novice::DrawBox(0, 0, 1380, 768, 0.0f, 0xffccccff, kFillModeSolid);
 		Novice::DrawEllipse(int(ball[kCount].position.x) + kBlocksize / 2, int(ball[kCount].position.y) + kBlocksize / 2, 100, 100, 0.0f, 0xFFFFFFFF, kFillModeSolid);
 	}
-	Novice::DrawSprite(int(pos.x), int(pos.y), RedBall, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
 	for (int i = 0; i < 100; i++) {
 		if (ball[i].isActive) {
 			Novice::DrawEllipse(int(ball[i].position.x) + kBlocksize / 2, int(ball[i].position.y) + kBlocksize / 2, 16, 16, 0.0f, ball[i].color, kFillModeSolid);//仮ボール
 			Novice::DrawBox(int(ball[i].position.x), int(ball[i].position.y), 64, 64, 0.0f, ball[i].color, kFillModeSolid);//仮ボール
 		}
 	}
+	Novice::DrawSprite(int(pos.x), int(pos.y), RedBall, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
 }
 
 void Player::Move() {
@@ -154,6 +156,8 @@ void Player::RollBack() {
 		pos = ball[kCount].position;
 		ball[kCount].position = {};
 		ball[kCount].isActive = false;
+		ball[kCount + 1].fallTimer = ball[kCount].fallTimerMax;
+		ball[kCount + 1].ballState = NEUTRAL;
 	}
 }
 
@@ -168,7 +172,7 @@ void Player::CheckSafety() {
 						int mapChipCenterY = kBlocksize * k + kBlocksize / 2;
 						float distanceX = sqrt((ball[i].center.x - mapChipCenterX) * (ball[i].center.x - mapChipCenterX));
 						float distanceY = sqrt((ball[i].center.y - mapChipCenterY) * (ball[i].center.y - mapChipCenterY));
-						if (distanceX<=kBlocksize&&distanceY<=kBlocksize)
+						if (distanceX <= kBlocksize && distanceY <= kBlocksize)
 						{
 							ball[i].ballState = STABLE;
 							ball[i].color = WHITE;
@@ -180,6 +184,7 @@ void Player::CheckSafety() {
 						{
 							ball[i].ballState = DANGER;
 							ball[i].color = RED;
+							ball[i].fallTimer = ball[i].fallTimerMax;
 						}
 					}
 					else if (ball[i].ballState != STABLE)
@@ -187,7 +192,41 @@ void Player::CheckSafety() {
 						ball[i].ballState = UNSTABLE;
 						ball[i].color = 0xff9999ff;
 					}
+					else if (ball[i].ballState == DANGER && ball[i + 1].ballState == STABLE) {
+						ball[i].ballState = UNSTABLE;
+						ball[i].color = 0xff9999ff;
+						ball[i].fallTimer = ball[i].fallTimerMax;
+					}
 				}
+			}
+		}
+	}
+}
+
+void Player::FallBlock()
+{
+	for (int i = 0; i < 100; i++)
+	{
+		if (kCount < i && ball[kCount+1].isActive == false)
+		{
+			ball[i].position = {};
+			ball[i].isActive = false;
+			ball[i].ballState = NEUTRAL;
+			ball[i].color = 0x00000000;
+		}
+		if (ball[i].ballState == DANGER)
+		{
+			ball[i].fallTimer--;
+			if (ball[i].fallTimer <= 0)
+			{
+				kCount = i - 1;
+
+				pos = ball[kCount].position;
+				ball[i].position = {};
+				ball[i].isActive = false;
+				ball[i].fallTimer = ball[i].fallTimerMax;
+				ball[i].ballState = NEUTRAL;
+				ball[i].color = 0x00000000;
 			}
 		}
 	}
