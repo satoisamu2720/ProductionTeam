@@ -44,7 +44,7 @@ private:
 
 	float length;
 
-	float speed = 2;
+	float speed = 3;
 
 	int kCount = 0;
 

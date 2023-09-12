@@ -61,11 +61,14 @@ void Player::Move() {
 	case Player::NORMAL:
 
 		RollBack();//ˆêŽè‘O‚Ö–ß‚é
-		SetPlayer();
+		if (keys[DIK_SPACE] && !preKeys[DIK_SPACE] || Novice::IsTriggerButton(0, kPadButton10)) {
+			SetPlayer();
+		}
 
 		break;
 
 	case Player::SETMODE:
+		RollBack();//ˆêŽè‘O‚Ö–ß‚é
 
 		if (righty <= -10000 || keys[DIK_UP] && preKeys[DIK_UP]) {//ã‚ð‰Ÿ‚µ‚½‚ç
 			pos.y -= speed;
@@ -116,7 +119,8 @@ void Player::Move() {
 			moveCount = 0;
 			isSet = false;
 			kCount += 1;
-			mp = NORMAL;
+			//mp = NORMAL;
+			SetPlayer();
 		}
 		break;
 	}
@@ -139,7 +143,6 @@ void Player::MoveLimit() {
 }
 
 void Player::SetPlayer() {
-	if (keys[DIK_SPACE] && !preKeys[DIK_SPACE] || Novice::IsTriggerButton(0, kPadButton10)) {
 		ball[kCount].position = pos;
 		ball[kCount].center = { ball[kCount].position.x + kBlocksize / 2,ball[kCount].position.y + kBlocksize / 2 };
 
@@ -148,16 +151,15 @@ void Player::SetPlayer() {
 		mp = SETMODE;
 
 		//kCount += 1;
-	}
 }
 
 void Player::RollBack() {
 	if (keys[DIK_RETURN] && !preKeys[DIK_RETURN] && kCount>=1) {
-		kCount -= 1;
 
 		pos = ball[kCount].position;
 		ball[kCount].position = {};
 		ball[kCount].isActive = false;
+		kCount -= 1;
 	}
 }
 
