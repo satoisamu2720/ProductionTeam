@@ -160,31 +160,36 @@ void Player::RollBack() {
 }
 
 void Player::CheckSafety() {
-	for (int i = 0; i < 100; i++){
-		if (ball[i].isActive) {
-			if (m->map[int(ball[i].position.y)][int(ball[i].position.x) - 1] == m->BORDER) {
-				ball[i].ballState = STABLE;
-				ball[i].color = WHITE;
-			}
-			else if (m->map[int(ball[i].position.y)][int(ball[i].position.x) + 1] == m->BORDER) {
-				ball[i].ballState = STABLE;
-				ball[i].color = WHITE;
-			}
-			else if (m->map[int(ball[i].position.y) - 1][int(ball[i].position.x)] == m->BORDER) {
-				ball[i].ballState = STABLE;
-				ball[i].color = WHITE;
-			}
-			else if (m->map[int(ball[i].position.y) + 1][int(ball[i].position.x)] == m->BORDER) {
-				ball[i].ballState = STABLE;
-				ball[i].color = WHITE;
-			}
-			else if (ball[i - 1].ballState == UNSTABLE || ball[i - 1].ballState == DANGER) {
-				ball[i].ballState = DANGER;
-				ball[i].color = RED;
-			}
-			else {
-				ball[i].ballState = UNSTABLE;
-				ball[i].color = 0xff9999ff;
+	for (int i = 0; i < 100; i++) {//ball
+		for (int j = 0; j < 20; j++) {//mapX
+			for (int k = 0; k < 12; k++) {//mapY
+				if (ball[i].isActive) {
+					if (m->map[k][j] == m->BORDER)
+					{
+						int mapChipCenterX = kBlocksize * j + kBlocksize / 2;
+						int mapChipCenterY = kBlocksize * k + kBlocksize / 2;
+						float distanceX = sqrt((ball[i].center.x - mapChipCenterX) * (ball[i].center.x - mapChipCenterX));
+						float distanceY = sqrt((ball[i].center.y - mapChipCenterY) * (ball[i].center.y - mapChipCenterY));
+						if (distanceX <= kBlocksize && distanceY <= kBlocksize)
+						{
+							ball[i].ballState = STABLE;
+							ball[i].color = WHITE;
+						}
+					}
+					else if (ball[i - 1].ballState == UNSTABLE || ball[i - 1].ballState == DANGER)
+					{
+						if (ball[i].ballState != STABLE)
+						{
+							ball[i].ballState = DANGER;
+							ball[i].color = RED;
+						}
+					}
+					else if (ball[i].ballState != STABLE)
+					{
+						ball[i].ballState = UNSTABLE;
+						ball[i].color = 0xff9999ff;
+					}
+				}
 			}
 		}
 	}
