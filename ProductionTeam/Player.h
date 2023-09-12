@@ -36,6 +36,8 @@ private:
 	Vector2 delta{};
 	float length;
 
+	float speed = 2;
+
 	int kCount = 0;
 
 	int moveCount = 0;
@@ -45,7 +47,6 @@ private:
 	//ブロックサイズの設定
 	const int kBlocksize = 64;
 
-	int SelectTimer = 0;//セット時長押し用タイマー
 
 	enum movePattern {
 		NORMAL,

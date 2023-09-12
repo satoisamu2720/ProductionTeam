@@ -14,7 +14,6 @@ void Player::Updata() {
 	memcpy(preKeys, keys, 356);
 	Novice::GetHitKeyStateAll(keys);
 
-	SelectTimer--;//タイマー開始
 
 	//
 	Move();
@@ -71,21 +70,21 @@ void Player::Move() {
 		//}
 		break;
 	case Player::SETMODE:
-		if (keys[DIK_UP] && preKeys[DIK_UP] && SelectTimer <= 0 && m->map[int(pos.y / kBlocksize)][int(pos.x / kBlocksize)] != m->BORDER) {//上を押したら
-			pos.y -= 1;
-			if (m->map[int(pos.y / kBlocksize)][int(pos.x / kBlocksize)] == m->BORDER) {
+		if (keys[DIK_UP] && preKeys[DIK_UP]) {//上を押したら
+			pos.y -= speed;
+			if ((m->map[int(pos.y / kBlocksize)][int((pos.x + kBlocksize - 1) / kBlocksize)] == m->BORDER) || (m->map[int(pos.y / kBlocksize)][int(pos.x / kBlocksize)] == m->BORDER)) {
 				pos.y = int(pos.y / kBlocksize) * kBlocksize + kBlocksize;
 			}
 		}
-		if (keys[DIK_DOWN] && SelectTimer <= 0 && preKeys[DIK_DOWN] && m->map[int((pos.y / kBlocksize) + 1)][int(pos.x / kBlocksize)] != m->BORDER) {//下を押したら
-			pos.y += 1;
+		if (keys[DIK_DOWN] && preKeys[DIK_DOWN] && (m->map[int((pos.y / kBlocksize) + 1)][int(pos.x / kBlocksize)] != m->BORDER && (m->map[int((pos.y / kBlocksize) + 1)][int((pos.x + kBlocksize -1) / kBlocksize)] != m->BORDER))) {//下を押したら
+			pos.y += speed;
 		}
-		if (keys[DIK_RIGHT] && SelectTimer <= 0 && preKeys[DIK_RIGHT] && m->map[int(pos.y / kBlocksize)][int((pos.x / kBlocksize) + 1)] != m->BORDER) {//右を押したら
-			pos.x += 1;
+		if (keys[DIK_RIGHT] && preKeys[DIK_RIGHT] && (m->map[int(pos.y / kBlocksize)][int(pos.x / kBlocksize) + 1] != m->BORDER && (m->map[int((pos.y + kBlocksize - 1) / kBlocksize)][int(pos.x / kBlocksize) + 1] != m->BORDER))) {//右を押したら
+			pos.x += speed;
 		}
-		if (keys[DIK_LEFT] && SelectTimer <= 0 && preKeys[DIK_LEFT] && m->map[int(pos.y / kBlocksize)][int(pos.x / kBlocksize)] != m->BORDER) {//左を押したら
-			pos.x -= 1;
-			if (m->map[int(pos.y / kBlocksize)][int(pos.x / kBlocksize)] == m->BORDER) {
+		if (keys[DIK_LEFT] && preKeys[DIK_LEFT]) {//左を押したら
+			pos.x -= speed;
+			if (m->map[int(pos.y / kBlocksize)][int(pos.x / kBlocksize)] == m->BORDER || m->map[int((pos.y + kBlocksize - 1) / kBlocksize)][int(pos.x / kBlocksize)] == m->BORDER) {
 				pos.x = int(pos.x / kBlocksize) * kBlocksize + kBlocksize;
 			}
 		}
