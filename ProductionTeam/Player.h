@@ -2,6 +2,7 @@
 #include <Novice.h>
 #include "Vec2.h"
 #include "Map.h"
+#include <ImGuiManager.h>
 
 class Player
 {

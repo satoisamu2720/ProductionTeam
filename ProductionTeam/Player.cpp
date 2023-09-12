@@ -16,6 +16,10 @@ void Player::Updata() {
 	Novice::GetAnalogInputLeft(0, &leftx, &lefty);
 	Novice::GetAnalogInputRight(0, &rightx, &righty);
 
+	ImGui::Begin("window");
+	ImGui::DragFloat("LengthLimit", &lengthLimit, 0.5f);
+	ImGui::End();
+
 	//
 	Move();
 	ballUpdata();
