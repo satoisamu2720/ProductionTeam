@@ -105,11 +105,15 @@ void Player::MoveLimit() {
 
 	delta = Subtract(pos, ball[kCount].position);
 	length = Length(delta);
-	//Normalize(delta);
 	delta.x /= length;
 	delta.y /= length;
-	pos.x = ball[kCount].position.x + delta.x * 100;
-	pos.y = ball[kCount].position.y + delta.y * 100;
+	if (length <= 100) {
+		pos = pos;
+	}
+	else {
+		pos.x = ball[kCount].position.x + delta.x * 100;
+		pos.y = ball[kCount].position.y + delta.y * 100;
+	}
 }
 
 void Player::SetPlayer() {
