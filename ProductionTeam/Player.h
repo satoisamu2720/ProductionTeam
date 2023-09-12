@@ -34,6 +34,12 @@ private:
 
 	Vector2 pos{1*64,9*64};
 	Vector2 delta{};
+
+	int leftx = 0;
+	int lefty = 0;
+	int rightx = 0;
+	int righty = 0;
+
 	float length;
 
 	float speed = 2;
