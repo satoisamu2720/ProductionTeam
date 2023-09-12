@@ -14,14 +14,17 @@ enum GAMESCENE {
 class sceneManager
 {
 public:
+	//ゲームシーン用
 	void Initialize();
 
 	void Update();
 
 	void Draw();
 
+	//ここからタイトル宣言
 	void TitleUpdate();
 
+	//シーン切り替え用
 	GAMESCENE GetScene() { return gameScene; }
 
 private:

@@ -1,5 +1,9 @@
 ﻿#include "sceneManager.h"
 
+/******************
+　プレイ画面用の処理
+*******************/
+
 void sceneManager::Initialize() {
 	player->Initialize();
 }
@@ -11,6 +15,10 @@ void sceneManager::Draw() {
 	map->Draw();
 }
 
+/*****************
+　ここからタイトル用
+******************/
+
 void sceneManager::TitleUpdate() {
 	//キー受け取り
 	memcpy(preKeys, keys, 356);
@@ -21,3 +29,13 @@ void sceneManager::TitleUpdate() {
 	}
 
 }
+
+/********************
+　ここからゲームクリア用
+*********************/
+
+
+
+/*********************
+　ここからゲームオーバー用
+**********************/
