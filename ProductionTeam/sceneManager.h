@@ -1,4 +1,5 @@
 #pragma once
+#include <Novice.h>
 #include "Player.h"
 #include "Map.h"
 #include "Title.h"
@@ -19,11 +20,20 @@ public:
 
 	void Draw();
 
-	void TitleUpdate(int scene);
+	void TitleUpdate();
+
+	GAMESCENE GetScene() { return gameScene; }
 
 private:
+	char keys[356] = {};
+	char preKeys[356] = {};
+
 	Player* player = new Player;
+	
 	Map* map = new Map;
+
 	Title* title = new Title;
+
+	GAMESCENE gameScene = TITLE;
 };
 
