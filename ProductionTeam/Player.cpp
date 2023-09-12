@@ -94,10 +94,10 @@ void Player::Move() {
 				pos.x = int(pos.x / kBlocksize) * kBlocksize + kBlocksize;
 			}
 		}
+		MoveLimit();
 		if (keys[DIK_SPACE] && !preKeys[DIK_SPACE] && (pos.x!=ball[kCount].position.x || pos.y != ball[kCount].position.y)) {
 			moveCount = 0;
 			isSet = false;
-			MoveLimit();
 			kCount += 1;
 			mp = NORMAL;
 		}
