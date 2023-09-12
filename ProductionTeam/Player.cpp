@@ -3,7 +3,7 @@
 void Player::Initialize() {
 	for (int i = 0; i < 100; i++) {
 		ball[i].position = {0,0};
-		ball[i].ballState = STABLE;
+		ball[i].ballState = NEUTRAL;
 		ball[i].isActive = false;
 		ball[i].color = WHITE;
 	}
