@@ -37,7 +37,7 @@ private:
 	int kCount = 0;
 
 	int moveCount = 0;
-	int moveMax = 2;
+	int moveMax = 100;
 
 	bool isSet = false;
 	//ブロックサイズの設定
