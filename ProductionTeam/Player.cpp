@@ -46,6 +46,7 @@ void Player::Draw() {
 	for (int i = 0; i < 100; i++) {
 		if (ball[i].isActive) {
 			Novice::DrawEllipse(int(ball[i].position.x) + kBlocksize / 2, int(ball[i].position.y) + kBlocksize / 2, 16, 16, 0.0f, ball[i].color, kFillModeSolid);//仮ボール
+			Novice::DrawBox(int(ball[i].position.x), int(ball[i].position.y), 64, 64, 0.0f, ball[i].color, kFillModeSolid);//仮ボール
 		}
 	}
 }
@@ -54,53 +55,59 @@ void Player::Move() {
 	switch (mp)
 	{
 	case Player::NORMAL:
+
 		RollBack();//一手前へ戻る
 		SetPlayer();
-		//if (keys[DIK_UP] && preKeys[DIK_UP] && SelectTimer <= 0 && m->map[int(pos.y / kBlocksize)][int(pos.x / kBlocksize)] != m->BORDER) {//上を押したら
-		//	pos.y -= 1;
-		//	if (m->map[int(pos.y / kBlocksize)][int(pos.x / kBlocksize)] == m->BORDER) {
-		//		pos.y = int(pos.y / kBlocksize) * kBlocksize + kBlocksize;
-		//	}
-		//}
-		//if (keys[DIK_DOWN] && SelectTimer <= 0 && preKeys[DIK_DOWN] && m->map[int((pos.y / kBlocksize) + 1)][int(pos.x / kBlocksize)] != m->BORDER) {//下を押したら
-		//	pos.y += 1;
-		//}
-		//if (keys[DIK_RIGHT] && SelectTimer <= 0 && preKeys[DIK_RIGHT] && m->map[int(pos.y / kBlocksize)][int((pos.x / kBlocksize) + 1)] != m->BORDER) {//右を押したら
-		//	pos.x += 1;
-		//}
-		//if (keys[DIK_LEFT] && SelectTimer <= 0 && preKeys[DIK_LEFT] && m->map[int(pos.y / kBlocksize)][int(pos.x / kBlocksize)] != m->BORDER) {//左を押したら
-		//	pos.x -= 1;
-		//	if (m->map[int(pos.y / kBlocksize)][int(pos.x / kBlocksize)] == m->BORDER) {
-		//		pos.x = int(pos.x / kBlocksize) * kBlocksize + kBlocksize;
-		//	}
-		//}
+
 		break;
+
 	case Player::SETMODE:
-		if (righty <= -10000||keys[DIK_UP] && preKeys[DIK_UP]) {//上を押したら
+
+		if (righty <= -10000 || keys[DIK_UP] && preKeys[DIK_UP]) {//上を押したら
 			pos.y -= speed;
 			if ((m->map[int(pos.y / kBlocksize)][int((pos.x + kBlocksize - 1) / kBlocksize)] == m->BORDER) || (m->map[int(pos.y / kBlocksize)][int(pos.x / kBlocksize)] == m->BORDER)) {
 				pos.y = int(pos.y / kBlocksize) * kBlocksize + kBlocksize;
 			}
 		}
-		if (righty >= 10000||keys[DIK_DOWN] && preKeys[DIK_DOWN]) {//下を押したら
+		if (righty >= 10000 || keys[DIK_DOWN] && preKeys[DIK_DOWN]) {//下を押したら
 			pos.y += speed;
 			if ((m->map[int((pos.y / kBlocksize) + 1)][int(pos.x / kBlocksize)] == m->BORDER || (m->map[int((pos.y / kBlocksize) + 1)][int((pos.x + kBlocksize - 1) / kBlocksize)] == m->BORDER))) {
 				pos.y = int(pos.y / kBlocksize) * kBlocksize;
 			}
 		}
-		if (rightx >= 10000||keys[DIK_RIGHT] && preKeys[DIK_RIGHT]) {//右を押したら
+		if (rightx >= 10000 || keys[DIK_RIGHT] && preKeys[DIK_RIGHT]) {//右を押したら
 			pos.x += speed;
 			if ((m->map[int(pos.y / kBlocksize)][int(pos.x / kBlocksize) + 1] == m->BORDER || (m->map[int((pos.y + kBlocksize - 1) / kBlocksize)][int(pos.x / kBlocksize) + 1] == m->BORDER))) {
 				pos.x = int(pos.x / kBlocksize) * kBlocksize;
 			}
 		}
-		if (rightx <= -10000||keys[DIK_LEFT] && preKeys[DIK_LEFT]) {//左を押したら
+		if (rightx <= -10000 || keys[DIK_LEFT] && preKeys[DIK_LEFT]) {//左を押したら
 			pos.x -= speed;
 			if (m->map[int(pos.y / kBlocksize)][int(pos.x / kBlocksize)] == m->BORDER || m->map[int((pos.y + kBlocksize - 1) / kBlocksize)][int(pos.x / kBlocksize)] == m->BORDER) {
 				pos.x = int(pos.x / kBlocksize) * kBlocksize + kBlocksize;
 			}
 		}
+
 		MoveLimit();
+
+		if ((righty <= -10000 || keys[DIK_UP] && preKeys[DIK_UP]) || (righty >= 10000 || keys[DIK_DOWN] && preKeys[DIK_DOWN])) {
+			if ((m->map[int(pos.y / kBlocksize)][int(pos.x / kBlocksize) + 1] == m->BORDER || (m->map[int((pos.y + kBlocksize - 1) / kBlocksize)][int(pos.x / kBlocksize) + 1] == m->BORDER))) {
+				pos.x = int(pos.x / kBlocksize) * kBlocksize;
+			}
+			if (m->map[int(pos.y / kBlocksize)][int(pos.x / kBlocksize)] == m->BORDER || m->map[int((pos.y + kBlocksize - 1) / kBlocksize)][int(pos.x / kBlocksize)] == m->BORDER) {
+				pos.x = int(pos.x / kBlocksize) * kBlocksize + kBlocksize;
+			}
+		}
+
+		if ((rightx >= 10000 || keys[DIK_RIGHT] && preKeys[DIK_RIGHT]) || (rightx <= -10000 || keys[DIK_LEFT] && preKeys[DIK_LEFT])) {
+			if ((m->map[int(pos.y / kBlocksize)][int((pos.x + kBlocksize - 1) / kBlocksize)] == m->BORDER) || (m->map[int(pos.y / kBlocksize)][int(pos.x / kBlocksize)] == m->BORDER)) {
+				pos.y = int(pos.y / kBlocksize) * kBlocksize + kBlocksize;
+			}
+			if ((m->map[int((pos.y / kBlocksize) + 1)][int(pos.x / kBlocksize)] == m->BORDER || (m->map[int((pos.y / kBlocksize) + 1)][int((pos.x + kBlocksize - 1) / kBlocksize)] == m->BORDER))) {
+				pos.y = int(pos.y / kBlocksize) * kBlocksize;
+			}
+		}
+
 		if (keys[DIK_SPACE] && !preKeys[DIK_SPACE] && (pos.x!=ball[kCount].position.x || pos.y != ball[kCount].position.y)) {
 			moveCount = 0;
 			isSet = false;
