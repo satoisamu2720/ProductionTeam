@@ -63,6 +63,7 @@ private:
 		STABLE,//ˆÀ’è
 		UNSTABLE,//•sˆÀ’è
 		DANGER,//ŠëŒ¯
+		NEUTRAL
 	};
 
 	enum BallKind {
@@ -78,6 +79,8 @@ private:
 		int costs = 1;
 		UINT32 color = WHITE;
 		bool isActive = false;
+		Vector2 center{};
+		int radius = 16;
 	};
 	Ball ball[100] = {};
 
