@@ -10,3 +10,7 @@ void sceneManager::Draw() {
 	player->Draw();
 	map->Draw();
 }
+
+void sceneManager::TitleUpdate(int scene) {
+	title->Updata(scene);
+}

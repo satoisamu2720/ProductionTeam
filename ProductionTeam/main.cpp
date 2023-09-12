@@ -18,6 +18,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	sceneM->Initialize();
 
+	int scene = TITLE;
+
 	// ウィンドウの×ボタンが押されるまでループ
 	while (Novice::ProcessMessage() == 0) {
 		// フレームの開始
@@ -30,7 +32,30 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		///
 		/// ↓更新処理ここから
 		///
-		sceneM->Update();
+		
+		switch (scene)
+		{
+		case TITLE:
+
+			sceneM->TitleUpdate(scene);
+
+			break;
+		
+		case PLAY:
+
+			sceneM->Update();
+
+			break;
+
+		case CLEAR:
+
+			break;
+
+		case OVER:
+
+			break;
+		}
+
 		///
 		/// ↑更新処理ここまで
 		///
@@ -38,7 +63,28 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		///
 		/// ↓描画処理ここから
 		///
-		sceneM->Draw();
+		
+		switch (scene)
+		{
+		case TITLE:
+
+			break;
+
+		case PLAY:
+
+			sceneM->Draw();
+
+			break;
+
+		case CLEAR:
+
+			break;
+
+		case OVER:
+
+			break;
+		}
+		
 		///
 		/// ↑描画処理ここまで
 		///

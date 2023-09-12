@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <Novice.h>
 
 class Map
@@ -40,14 +40,14 @@ public:
 	};
 	enum MapInfo {
 		NONE,// 0
-		SETPOINT,//1’u‚¯‚éêŠ
-		BLOCKTILE,//2ƒuƒƒbƒNƒ^ƒCƒ‹
-		BORDER,//3ƒ}ƒbƒv‹«ŠEü
+		SETPOINT,//1ç½®ã‘ã‚‹å ´æ‰€
+		BLOCKTILE,//2ãƒ–ãƒ­ãƒƒã‚¯ã‚¿ã‚¤ãƒ«
+		BORDER,//3ãƒãƒƒãƒ—å¢ƒç•Œç·š
 	};
 private:
 	const int kBlocksize = 64;//
 
-	int Blocka = Novice::LoadTexture("./NoviceResources/blocka.png");//ƒuƒƒbƒN
-	int waku = Novice::LoadTexture("./NoviceResources/waku.png");//ƒuƒƒbƒN
+	int Blocka = Novice::LoadTexture("./NoviceResources/blocka.png");//ãƒ–ãƒ­ãƒƒã‚¯
+	int waku = Novice::LoadTexture("./NoviceResources/waku.png");//ãƒ–ãƒ­ãƒƒã‚¯
 
 };

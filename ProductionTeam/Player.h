@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <Novice.h>
 #include "Vector2.h"
 #include "Map.h"
@@ -29,7 +29,7 @@ private:
 
 	Map* m = new Map;
 
-	int RedBall = Novice::LoadTexture("./NoviceResources/RedBall.png");//ƒ{[ƒ‹ = 1
+	int RedBall = Novice::LoadTexture("./NoviceResources/RedBall.png");//ãƒœãƒ¼ãƒ« = 1
 
 	Vector2 pos{1,9};
 
@@ -39,10 +39,10 @@ private:
 	int moveMax = 2;
 
 	bool isSet = false;
-	//ƒuƒƒbƒNƒTƒCƒY‚Ìİ’è
+	//ãƒ–ãƒ­ãƒƒã‚¯ã‚µã‚¤ã‚ºã®è¨­å®š
 	const int kBlocksize = 64;
 
-	int SelectTimer = 0;//ƒZƒbƒg’·‰Ÿ‚µ—pƒ^ƒCƒ}[
+	int SelectTimer = 0;//ã‚»ãƒƒãƒˆæ™‚é•·æŠ¼ã—ç”¨ã‚¿ã‚¤ãƒãƒ¼
 
 	enum movePattern {
 		NORMAL,
@@ -50,9 +50,9 @@ private:
 	};
 
 	enum BallState {
-		STABLE,//ˆÀ’è
-		UNSTABLE,//•sˆÀ’è
-		DANGER,//ŠëŒ¯
+		STABLE,//å®‰å®š
+		UNSTABLE,//ä¸å®‰å®š
+		DANGER,//å±é™º
 	};
 
 	enum BallKind {
@@ -63,8 +63,8 @@ private:
 
 	struct Ball {
 		Vector2 position{};
-		BallState ballState = STABLE;//ó‘Ô
-		BallKind ballKind = a;//í—Ş
+		BallState ballState = STABLE;//çŠ¶æ…‹
+		BallKind ballKind = a;//ç¨®é¡
 		int costs = 1;
 		UINT32 color = WHITE;
 		bool isActive = false;
