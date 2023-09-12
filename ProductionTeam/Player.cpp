@@ -23,11 +23,19 @@ void Player::Updata() {
 }
 
 void Player::Draw() {
+	Novice::ScreenPrintf(0, 0, "%f, %f",pos.x, pos.y);
+	Novice::ScreenPrintf(0, 20, "%d", kCount);
+	Novice::ScreenPrintf(0, 40, "%f , %f", ball[0].position.x, ball[0].position.y);
+	Novice::ScreenPrintf(0, 60, "%f , %f", ball[1].position.x, ball[1].position.y);
+	Novice::ScreenPrintf(0, 100, "%f, %f", delta.x, delta.y);
+	Novice::ScreenPrintf(0, 120, "%f", length);
+
 	if (!isSet) {
 		Novice::DrawBox(0, 0, 1380, 768, 0.0f, 0xccffffff, kFillModeSolid);
 	}
 	else {
 		Novice::DrawBox(0, 0, 1380, 768, 0.0f, 0xffccccff, kFillModeSolid);
+		Novice::DrawEllipse(int(ball[kCount].position.x) + kBlocksize / 2, int(ball[kCount].position.y) + kBlocksize / 2, 100, 100, 0.0f, 0xFFFFFFFF, kFillModeSolid);
 	}
 	Novice::DrawSprite(int(pos.x), int(pos.y), RedBall, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
 	for (int i = 0; i < 100; i++) {
@@ -43,24 +51,24 @@ void Player::Move() {
 	case Player::NORMAL:
 		RollBack();//àÍéËëOÇ÷ñﬂÇÈ
 		SetPlayer();
-		if (keys[DIK_UP] && preKeys[DIK_UP] && SelectTimer <= 0 && m->map[int(pos.y / kBlocksize)][int(pos.x / kBlocksize)] != m->BORDER) {//è„ÇâüÇµÇΩÇÁ
-			pos.y -= 1;
-			if (m->map[int(pos.y / kBlocksize)][int(pos.x / kBlocksize)] == m->BORDER) {
-				pos.y = int(pos.y / kBlocksize) * kBlocksize + kBlocksize;
-			}
-		}
-		if (keys[DIK_DOWN] && SelectTimer <= 0 && preKeys[DIK_DOWN] && m->map[int((pos.y / kBlocksize) + 1)][int(pos.x / kBlocksize)] != m->BORDER) {//â∫ÇâüÇµÇΩÇÁ
-			pos.y += 1;
-		}
-		if (keys[DIK_RIGHT] && SelectTimer <= 0 && preKeys[DIK_RIGHT] && m->map[int(pos.y / kBlocksize)][int((pos.x / kBlocksize) + 1)] != m->BORDER) {//âEÇâüÇµÇΩÇÁ
-			pos.x += 1;
-		}
-		if (keys[DIK_LEFT] && SelectTimer <= 0 && preKeys[DIK_LEFT] && m->map[int(pos.y / kBlocksize)][int(pos.x / kBlocksize)] != m->BORDER) {//ç∂ÇâüÇµÇΩÇÁ
-			pos.x -= 1;
-			if (m->map[int(pos.y / kBlocksize)][int(pos.x / kBlocksize)] == m->BORDER) {
-				pos.x = int(pos.x / kBlocksize) * kBlocksize + kBlocksize;
-			}
-		}
+		//if (keys[DIK_UP] && preKeys[DIK_UP] && SelectTimer <= 0 && m->map[int(pos.y / kBlocksize)][int(pos.x / kBlocksize)] != m->BORDER) {//è„ÇâüÇµÇΩÇÁ
+		//	pos.y -= 1;
+		//	if (m->map[int(pos.y / kBlocksize)][int(pos.x / kBlocksize)] == m->BORDER) {
+		//		pos.y = int(pos.y / kBlocksize) * kBlocksize + kBlocksize;
+		//	}
+		//}
+		//if (keys[DIK_DOWN] && SelectTimer <= 0 && preKeys[DIK_DOWN] && m->map[int((pos.y / kBlocksize) + 1)][int(pos.x / kBlocksize)] != m->BORDER) {//â∫ÇâüÇµÇΩÇÁ
+		//	pos.y += 1;
+		//}
+		//if (keys[DIK_RIGHT] && SelectTimer <= 0 && preKeys[DIK_RIGHT] && m->map[int(pos.y / kBlocksize)][int((pos.x / kBlocksize) + 1)] != m->BORDER) {//âEÇâüÇµÇΩÇÁ
+		//	pos.x += 1;
+		//}
+		//if (keys[DIK_LEFT] && SelectTimer <= 0 && preKeys[DIK_LEFT] && m->map[int(pos.y / kBlocksize)][int(pos.x / kBlocksize)] != m->BORDER) {//ç∂ÇâüÇµÇΩÇÁ
+		//	pos.x -= 1;
+		//	if (m->map[int(pos.y / kBlocksize)][int(pos.x / kBlocksize)] == m->BORDER) {
+		//		pos.x = int(pos.x / kBlocksize) * kBlocksize + kBlocksize;
+		//	}
+		//}
 		break;
 	case Player::SETMODE:
 		if (keys[DIK_UP] && preKeys[DIK_UP] && SelectTimer <= 0 && m->map[int(pos.y / kBlocksize)][int(pos.x / kBlocksize)] != m->BORDER) {//è„ÇâüÇµÇΩÇÁ
@@ -81,9 +89,11 @@ void Player::Move() {
 				pos.x = int(pos.x / kBlocksize) * kBlocksize + kBlocksize;
 			}
 		}
-		if (keys[DIK_SPACE] && !preKeys[DIK_SPACE]) {
+		if (keys[DIK_SPACE] && !preKeys[DIK_SPACE] && (pos.x!=ball[kCount].position.x || pos.y != ball[kCount].position.y)) {
 			moveCount = 0;
 			isSet = false;
+			MoveLimit();
+			kCount += 1;
 			mp = NORMAL;
 		}
 		break;
@@ -91,7 +101,15 @@ void Player::Move() {
 }
 
 void Player::MoveLimit() {
+	//float Limit = 10000;
 
+	delta = Subtract(pos, ball[kCount].position);
+	length = Length(delta);
+	//Normalize(delta);
+	delta.x /= length;
+	delta.y /= length;
+	pos.x = ball[kCount].position.x + delta.x * 100;
+	pos.y = ball[kCount].position.y + delta.y * 100;
 }
 
 void Player::SetPlayer() {
@@ -101,7 +119,7 @@ void Player::SetPlayer() {
 		ball[kCount].isActive = true;
 		mp = SETMODE;
 
-		kCount += 1;
+		//kCount += 1;
 	}
 }
 
