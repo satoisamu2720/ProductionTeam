@@ -76,11 +76,17 @@ void Player::Move() {
 				pos.y = int(pos.y / kBlocksize) * kBlocksize + kBlocksize;
 			}
 		}
-		if (keys[DIK_DOWN] && preKeys[DIK_DOWN] && (m->map[int((pos.y / kBlocksize) + 1)][int(pos.x / kBlocksize)] != m->BORDER && (m->map[int((pos.y / kBlocksize) + 1)][int((pos.x + kBlocksize -1) / kBlocksize)] != m->BORDER))) {//â∫ÇâüÇµÇΩÇÁ
+		if (keys[DIK_DOWN] && preKeys[DIK_DOWN]) {//â∫ÇâüÇµÇΩÇÁ
 			pos.y += speed;
+			if ((m->map[int((pos.y / kBlocksize) + 1)][int(pos.x / kBlocksize)] == m->BORDER || (m->map[int((pos.y / kBlocksize) + 1)][int((pos.x + kBlocksize - 1) / kBlocksize)] == m->BORDER))) {
+				pos.y = int(pos.y / kBlocksize) * kBlocksize;
+			}
 		}
-		if (keys[DIK_RIGHT] && preKeys[DIK_RIGHT] && (m->map[int(pos.y / kBlocksize)][int(pos.x / kBlocksize) + 1] != m->BORDER && (m->map[int((pos.y + kBlocksize - 1) / kBlocksize)][int(pos.x / kBlocksize) + 1] != m->BORDER))) {//âEÇâüÇµÇΩÇÁ
+		if (keys[DIK_RIGHT] && preKeys[DIK_RIGHT]) {//âEÇâüÇµÇΩÇÁ
 			pos.x += speed;
+			if ((m->map[int(pos.y / kBlocksize)][int(pos.x / kBlocksize) + 1] == m->BORDER || (m->map[int((pos.y + kBlocksize - 1) / kBlocksize)][int(pos.x / kBlocksize) + 1] == m->BORDER))) {
+				pos.x = int(pos.x / kBlocksize) * kBlocksize;
+			}
 		}
 		if (keys[DIK_LEFT] && preKeys[DIK_LEFT]) {//ç∂ÇâüÇµÇΩÇÁ
 			pos.x -= speed;
