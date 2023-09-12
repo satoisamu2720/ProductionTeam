@@ -1,6 +1,6 @@
 #pragma once
 #include <Novice.h>
-#include "Vector2.h"
+#include "Vec2.h"
 #include "Map.h"
 
 class Player

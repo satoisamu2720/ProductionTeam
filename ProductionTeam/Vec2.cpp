@@ -1,4 +1,4 @@
-#include "Vector2.h"
+#include "Vec2.h"
  
 Vector2 Add(const Vector2& a, const Vector2& b) {
 	return{ a.x + b.x,a.y + b.y };

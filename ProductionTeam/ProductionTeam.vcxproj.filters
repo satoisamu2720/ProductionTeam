@@ -47,7 +47,7 @@
     <ClCompile Include="sceneManager.cpp">
       <Filter>KamataEngine</Filter>
     </ClCompile>
-    <ClCompile Include="Vector2.cpp">
+    <ClCompile Include="Vec2.cpp">
       <Filter>KamataEngine</Filter>
     </ClCompile>
   </ItemGroup>
@@ -126,5 +126,6 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="sceneManager.h" />
+    <ClInclude Include="Vec2.h" />
   </ItemGroup>
 </Project>
