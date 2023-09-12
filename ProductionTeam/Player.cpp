@@ -44,7 +44,7 @@ void Player::Draw() {
 	}
 	else {
 		Novice::DrawBox(0, 0, 1380, 768, 0.0f, 0xffccccff, kFillModeSolid);
-		Novice::DrawEllipse(int(ball[kCount].position.x) + kBlocksize / 2, int(ball[kCount].position.y) + kBlocksize / 2, lengthLimit, lengthLimit, 0.0f, 0xFFFFFFFF, kFillModeSolid);
+		Novice::DrawEllipse(int(ball[kCount].position.x) + kBlocksize / 2, int(ball[kCount].position.y) + kBlocksize / 2, lengthLimit, lengthLimit, 0.0f, 0xffdbffff, kFillModeSolid);
 	}
 	Novice::DrawSprite(int(pos.x), int(pos.y), RedBall, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
 	for (int i = 0; i < 100; i++) {
