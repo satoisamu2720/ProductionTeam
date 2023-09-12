@@ -65,6 +65,7 @@ private:
 		STABLE,//ˆÀ’è
 		UNSTABLE,//•sˆÀ’è
 		DANGER,//ŠëŒ¯
+		NEUTRAL
 	};
 
 	enum BallKind {
