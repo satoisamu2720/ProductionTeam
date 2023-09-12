@@ -39,7 +39,7 @@ void Player::Draw() {
 	Novice::DrawSprite(int(pos.x), int(pos.y), RedBall, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
 	for (int i = 0; i < 100; i++) {
 		if (ball[i].isActive) {
-			Novice::DrawEllipse(int(ball[i].position.x) + 32, int(ball[i].position.y) + 32, 16, 16, 0.0f, ball[i].color, kFillModeSolid);//仮ボール
+			Novice::DrawEllipse(int(ball[i].position.x) + kBlocksize / 2, int(ball[i].position.y) + kBlocksize / 2, 16, 16, 0.0f, ball[i].color, kFillModeSolid);//仮ボール
 		}
 	}
 }
