@@ -1,4 +1,4 @@
-#include "Map.h"
+ï»¿#include "Map.h"
 
 void Map::Initialize() {
 
@@ -7,10 +7,10 @@ void Map::Initialize() {
 void Map::Draw() {
 	for (int i = 0; i < 12; i++) {
 		for (int j = 0; j < 20; j++) {
-			if (map[i][j] == BORDER) {//ƒ}ƒbƒvƒuƒƒbƒN•`‰æ
+			if (map[i][j] == BORDER) {//ãƒžãƒƒãƒ—ãƒ–ãƒ­ãƒƒã‚¯æç”»
 				Novice::DrawSprite(j * kBlocksize, i * kBlocksize, Blocka, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
 			}
-			if (map[i][j] == NONE) {//ƒ}ƒbƒvƒuƒƒbƒN•`‰æ
+			if (map[i][j] == NONE) {//ãƒžãƒƒãƒ—ãƒ–ãƒ­ãƒƒã‚¯æç”»
 				//Novice::DrawSprite(j * kBlocksize, i * kBlocksize, Blockb, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
 				Novice::DrawSprite(j * kBlocksize, i * kBlocksize, waku, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
 			}
