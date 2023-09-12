@@ -56,24 +56,30 @@ void Player::Move() {
 	case Player::NORMAL:
 		RollBack();//ˆêŽè‘O‚Ö–ß‚é
 		SetPlayer();
-		//if (keys[DIK_UP] && preKeys[DIK_UP] && SelectTimer <= 0 && m->map[int(pos.y / kBlocksize)][int(pos.x / kBlocksize)] != m->BORDER) {//ã‚ð‰Ÿ‚µ‚½‚ç
-		//	pos.y -= 1;
-		//	if (m->map[int(pos.y / kBlocksize)][int(pos.x / kBlocksize)] == m->BORDER) {
-		//		pos.y = int(pos.y / kBlocksize) * kBlocksize + kBlocksize;
-		//	}
-		//}
-		//if (keys[DIK_DOWN] && SelectTimer <= 0 && preKeys[DIK_DOWN] && m->map[int((pos.y / kBlocksize) + 1)][int(pos.x / kBlocksize)] != m->BORDER) {//‰º‚ð‰Ÿ‚µ‚½‚ç
-		//	pos.y += 1;
-		//}
-		//if (keys[DIK_RIGHT] && SelectTimer <= 0 && preKeys[DIK_RIGHT] && m->map[int(pos.y / kBlocksize)][int((pos.x / kBlocksize) + 1)] != m->BORDER) {//‰E‚ð‰Ÿ‚µ‚½‚ç
-		//	pos.x += 1;
-		//}
-		//if (keys[DIK_LEFT] && SelectTimer <= 0 && preKeys[DIK_LEFT] && m->map[int(pos.y / kBlocksize)][int(pos.x / kBlocksize)] != m->BORDER) {//¶‚ð‰Ÿ‚µ‚½‚ç
-		//	pos.x -= 1;
-		//	if (m->map[int(pos.y / kBlocksize)][int(pos.x / kBlocksize)] == m->BORDER) {
-		//		pos.x = int(pos.x / kBlocksize) * kBlocksize + kBlocksize;
-		//	}
-		//}
+		if (lefty <= -10000 || keys[DIK_UP] && preKeys[DIK_UP]) {//ã‚ð‰Ÿ‚µ‚½‚ç
+			pos.y -= speed;
+			if ((m->map[int(pos.y / kBlocksize)][int((pos.x + kBlocksize - 1) / kBlocksize)] == m->BORDER) || (m->map[int(pos.y / kBlocksize)][int(pos.x / kBlocksize)] == m->BORDER)) {
+				pos.y = int(pos.y / kBlocksize) * kBlocksize + kBlocksize;
+			}
+		}
+		if (lefty >= 10000 || keys[DIK_DOWN] && preKeys[DIK_DOWN]) {//‰º‚ð‰Ÿ‚µ‚½‚ç
+			pos.y += speed;
+			if ((m->map[int((pos.y / kBlocksize) + 1)][int(pos.x / kBlocksize)] == m->BORDER || (m->map[int((pos.y / kBlocksize) + 1)][int((pos.x + kBlocksize - 1) / kBlocksize)] == m->BORDER))) {
+				pos.y = int(pos.y / kBlocksize) * kBlocksize;
+			}
+		}
+		if (leftx >= 10000 || keys[DIK_RIGHT] && preKeys[DIK_RIGHT]) {//‰E‚ð‰Ÿ‚µ‚½‚ç
+			pos.x += speed;
+			if ((m->map[int(pos.y / kBlocksize)][int(pos.x / kBlocksize) + 1] == m->BORDER || (m->map[int((pos.y + kBlocksize - 1) / kBlocksize)][int(pos.x / kBlocksize) + 1] == m->BORDER))) {
+				pos.x = int(pos.x / kBlocksize) * kBlocksize;
+			}
+		}
+		if (leftx <= -10000 || keys[DIK_LEFT] && preKeys[DIK_LEFT]) {//¶‚ð‰Ÿ‚µ‚½‚ç
+			pos.x -= speed;
+			if (m->map[int(pos.y / kBlocksize)][int(pos.x / kBlocksize)] == m->BORDER || m->map[int((pos.y + kBlocksize - 1) / kBlocksize)][int(pos.x / kBlocksize)] == m->BORDER) {
+				pos.x = int(pos.x / kBlocksize) * kBlocksize + kBlocksize;
+			}
+		}
 		break;
 	case Player::SETMODE:
 		if (righty <= -10000||keys[DIK_UP] && preKeys[DIK_UP]) {//ã‚ð‰Ÿ‚µ‚½‚ç
@@ -101,7 +107,7 @@ void Player::Move() {
 			}
 		}
 		MoveLimit();
-		if (keys[DIK_SPACE] && !preKeys[DIK_SPACE] && (pos.x!=ball[kCount].position.x || pos.y != ball[kCount].position.y)) {
+		if (Novice::IsPressButton(0, kPadButton10)||keys[DIK_SPACE] && !preKeys[DIK_SPACE] && moveCount <= 10 &&(pos.x!=ball[kCount].position.x || pos.y != ball[kCount].position.y)) {
 			moveCount = 0;
 			isSet = false;
 			kCount += 1;
@@ -128,7 +134,7 @@ void Player::MoveLimit() {
 }
 
 void Player::SetPlayer() {
-	if (keys[DIK_SPACE] && !preKeys[DIK_SPACE]) {
+	if (Novice::IsPressButton(0, kPadButton10) || keys[DIK_SPACE] && !preKeys[DIK_SPACE]) {
 		ball[kCount].position = pos;
 		isSet = true;
 		ball[kCount].isActive = true;
