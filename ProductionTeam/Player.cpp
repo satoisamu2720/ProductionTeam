@@ -40,7 +40,7 @@ void Player::Draw() {
 	}
 	else {
 		Novice::DrawBox(0, 0, 1380, 768, 0.0f, 0xffccccff, kFillModeSolid);
-		Novice::DrawEllipse(int(ball[kCount].position.x) + kBlocksize / 2, int(ball[kCount].position.y) + kBlocksize / 2, 100, 100, 0.0f, 0xFFFFFFFF, kFillModeSolid);
+		Novice::DrawEllipse(int(ball[kCount].position.x) + kBlocksize / 2, int(ball[kCount].position.y) + kBlocksize / 2, lengthLimit, lengthLimit, 0.0f, 0xFFFFFFFF, kFillModeSolid);
 	}
 	Novice::DrawSprite(int(pos.x), int(pos.y), RedBall, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
 	for (int i = 0; i < 100; i++) {
@@ -125,12 +125,12 @@ void Player::MoveLimit() {
 	length = Length(delta);
 	delta.x /= length;
 	delta.y /= length;
-	if (length <= 100) {
+	if (length <= lengthLimit) {
 		pos = pos;
 	}
 	else {
-		pos.x = ball[kCount].position.x + delta.x * 100;
-		pos.y = ball[kCount].position.y + delta.y * 100;
+		pos.x = ball[kCount].position.x + delta.x * lengthLimit;
+		pos.y = ball[kCount].position.y + delta.y * lengthLimit;
 	}
 }
 

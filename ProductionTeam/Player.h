@@ -34,6 +34,7 @@ private:
 
 	Vector2 pos{1*64,9*64};
 	Vector2 delta{};
+	float lengthLimit = 200;
 
 	int leftx = 0;
 	int lefty = 0;
