@@ -90,7 +90,7 @@ void Player::Move() {
 
 		MoveLimit();
 
-		if ((righty <= -10000 || keys[DIK_UP] && preKeys[DIK_UP]) || (righty >= 10000 || keys[DIK_DOWN] && preKeys[DIK_DOWN])) {
+		/*if ((righty <= -10000 || keys[DIK_UP] && preKeys[DIK_UP]) || (righty >= 10000 || keys[DIK_DOWN] && preKeys[DIK_DOWN])) {
 			if ((m->map[int(pos.y / kBlocksize)][int(pos.x / kBlocksize) + 1] == m->BORDER || (m->map[int((pos.y + kBlocksize - 1) / kBlocksize)][int(pos.x / kBlocksize) + 1] == m->BORDER))) {
 				pos.x = int(pos.x / kBlocksize) * kBlocksize;
 			}
@@ -106,9 +106,9 @@ void Player::Move() {
 			if ((m->map[int((pos.y / kBlocksize) + 1)][int(pos.x / kBlocksize)] == m->BORDER || (m->map[int((pos.y / kBlocksize) + 1)][int((pos.x + kBlocksize - 1) / kBlocksize)] == m->BORDER))) {
 				pos.y = int(pos.y / kBlocksize) * kBlocksize;
 			}
-		}
+		}*/
 
-		if (keys[DIK_SPACE] && !preKeys[DIK_SPACE] && (pos.x!=ball[kCount].position.x || pos.y != ball[kCount].position.y)) {
+		if (keys[DIK_SPACE] && !preKeys[DIK_SPACE] || Novice::IsTriggerButton(0, kPadButton10)  && (pos.x!=ball[kCount].position.x || pos.y != ball[kCount].position.y)) {
 			moveCount = 0;
 			isSet = false;
 			kCount += 1;
@@ -135,7 +135,7 @@ void Player::MoveLimit() {
 }
 
 void Player::SetPlayer() {
-	if (keys[DIK_SPACE] && !preKeys[DIK_SPACE]) {
+	if (keys[DIK_SPACE] && !preKeys[DIK_SPACE] || Novice::IsTriggerButton(0, kPadButton10)) {
 		ball[kCount].position = pos;
 		isSet = true;
 		ball[kCount].isActive = true;
