@@ -141,6 +141,8 @@ void Player::MoveLimit() {
 void Player::SetPlayer() {
 	if (keys[DIK_SPACE] && !preKeys[DIK_SPACE] || Novice::IsTriggerButton(0, kPadButton10)) {
 		ball[kCount].position = pos;
+		ball[kCount].center = { ball[kCount].position.x + kBlocksize / 2,ball[kCount].position.y + kBlocksize / 2 };
+
 		isSet = true;
 		ball[kCount].isActive = true;
 		mp = SETMODE;
