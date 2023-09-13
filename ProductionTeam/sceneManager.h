@@ -78,6 +78,8 @@ private:
 	int titleVoice = -1;
 	int gameMusic = Novice::LoadAudio("./NoviceResources/Attack.mp3");
 	int gameVoice = -1;
+	int clearMusic = Novice::LoadAudio("./NoviceResources/fanfare.wav");
+	int clearVoice = -1;
 
 	Player* player = new Player;
 	Map* m = new Map;

@@ -24,6 +24,7 @@ void sceneManager::Draw() {
 
 void sceneManager::TitleUpdate() {
 	//キー受け取り
+	Novice::StopAudio(clearVoice);
 
 	if (Novice::IsPlayingAudio(titleVoice) == 0 || titleVoice == -1) {
 		titleVoice = Novice::PlayAudio(titleMusic, true, 0.5f);
@@ -181,6 +182,10 @@ void sceneManager::GameClearUpdate() {
 void sceneManager::ClearUpdate() {
 
 	Novice::StopAudio(gameVoice);
+
+	if (Novice::IsPlayingAudio(clearVoice) == 0 || clearVoice == -1) {
+		clearVoice = Novice::PlayAudio(clearMusic, true, 0.5f);
+	}
 
 	//キー受け取り
 	memcpy(preKeys, keys, 356);
