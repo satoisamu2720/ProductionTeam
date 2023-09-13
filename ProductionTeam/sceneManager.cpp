@@ -112,18 +112,18 @@ void sceneManager::TitleDraw() {
 	{
 	case GAMESTATE:
 
-		Novice::DrawSprite(300, 300, arrowImage, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+		Novice::DrawSprite(305, 365, arrowImage, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
 
 		break;
 	case EXSCENE:
 
-		Novice::DrawSprite(300, 500, arrowImage, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+		Novice::DrawSprite(410, 520, arrowImage, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
 
 		break;
 
 	case END:
 
-		Novice::DrawSprite(300, 700, arrowImage, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+		Novice::DrawSprite(390, 655, arrowImage, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
 
 		break;
 	}
