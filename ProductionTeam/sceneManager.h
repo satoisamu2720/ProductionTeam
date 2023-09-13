@@ -35,6 +35,8 @@ public:
 
 	void TitleDraw();
 
+	void ExplanationUpdate();
+
 	void ExplanationDraw();
 	
 	/// <summary>
@@ -53,6 +55,8 @@ public:
 
 	GAMESCENE GetScene() { return gameScene; }
 
+	bool GetGameEnd() { return gameEnd; }
+
 private:
 	char keys[356] = {};
 	char preKeys[356] = {};
@@ -60,12 +64,15 @@ private:
 	int leftX = 0;
 	int leftY = 0;
 
+	bool gameEnd = false;
+
 	int count1 = 0;
-	int count2 = 0;
-	int count3 = 0;
 
 	int arrowImage = Novice::LoadTexture("./NoviceResources/arrow.png");
 	int EXImage = Novice::LoadTexture("./NoviceResources/EXban.png");
+	int EXstateImage = Novice::LoadTexture("./NoviceResources/exState.png");
+	int gameStartImage = Novice::LoadTexture("./NoviceResources/gameStart.png");
+
 
 	Player* player = new Player;
 	Map* m = new Map;

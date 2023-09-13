@@ -84,7 +84,7 @@ void sceneManager::TitleUpdate() {
 		}
 
 		if (keys[DIK_RETURN] && !preKeys[DIK_RETURN] || Novice::IsTriggerButton(0, kPadButton11)) {
-			
+			gameEnd = true;
 		}
 
 		break;
@@ -94,26 +94,42 @@ void sceneManager::TitleUpdate() {
 
 void sceneManager::TitleDraw() {
 
+	Novice::DrawSprite(0, 0, gameStartImage, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+	Novice::DrawSprite(0, 0, EXstateImage, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+
 	title->Draw();
 
 	switch (titleState)
 	{
 	case GAMESTATE:
 
-		Novice::DrawSprite(300, 200, arrowImage, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+		Novice::DrawSprite(300, 300, arrowImage, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
 
 		break;
 	case EXSCENE:
 
-		Novice::DrawSprite(300, 400, arrowImage, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+		Novice::DrawSprite(300, 500, arrowImage, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
 
 		break;
 
 	case END:
 
-		Novice::DrawSprite(300, 600, arrowImage, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+		Novice::DrawSprite(300, 700, arrowImage, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
 
 		break;
+	}
+
+
+}
+
+void sceneManager::ExplanationUpdate() {
+
+	//キー受け取り
+	memcpy(preKeys, keys, 356);
+	Novice::GetHitKeyStateAll(keys);
+
+	if (keys[DIK_RETURN] && !preKeys[DIK_RETURN] || Novice::IsTriggerButton(0, kPadButton11)) {
+		gameScene = TITLE;
 	}
 
 }
