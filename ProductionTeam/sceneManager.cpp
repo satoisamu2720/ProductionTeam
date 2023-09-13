@@ -12,5 +12,12 @@ void sceneManager::Draw() {
 }
 
 void sceneManager::TitleUpdate() {
+	//ÉLÅ[éÛÇØéÊÇË
+	memcpy(preKeys, keys, 356);
+	Novice::GetHitKeyStateAll(keys);
+
+	if (keys[DIK_RETURN] && !preKeys[DIK_RETURN]) {
+		gameScene = PLAY;
+	}
 
 }

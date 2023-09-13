@@ -33,11 +33,23 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		
 		switch (sceneM->GetScene())
 		{
-		default:
+		case TITLE:
+
+			sceneM->TitleUpdate();
+
+			break;
+
+		case PLAY:
+
+			sceneM->Update();
+
+			break;
+
+		case CLEAR:
+
 			break;
 		}
 
-		sceneM->Update();
 		///
 		/// ↑更新処理ここまで
 		///
@@ -45,7 +57,24 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		///
 		/// ↓描画処理ここから
 		///
-		sceneM->Draw();
+		
+		switch (sceneM->GetScene())
+		{
+		case TITLE:
+
+			break;
+
+		case PLAY:
+
+			sceneM->Draw();
+
+			break;
+
+		case CLEAR:
+
+			break;
+		}
+
 		///
 		/// ↑描画処理ここまで
 		///
