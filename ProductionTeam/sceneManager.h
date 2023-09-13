@@ -72,7 +72,12 @@ private:
 	int EXImage = Novice::LoadTexture("./NoviceResources/EXban.png");
 	int EXstateImage = Novice::LoadTexture("./NoviceResources/exState.png");
 	int gameStartImage = Novice::LoadTexture("./NoviceResources/gameStart.png");
+	int titleSelect = Novice::LoadTexture("./NoviceResources/titleSelect.png");
 
+	int titleMusic = Novice::LoadAudio("./NoviceResources/Jungle_Walk.mp3");
+	int titleVoice = -1;
+	int gameMusic = Novice::LoadAudio("./NoviceResources/Attack.mp3");
+	int gameVoice = -1;
 
 	Player* player = new Player;
 	Map* m = new Map;

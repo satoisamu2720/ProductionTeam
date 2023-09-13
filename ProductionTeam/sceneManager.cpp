@@ -4,6 +4,13 @@ void sceneManager::Initialize() {
 	player->Initialize();
 }
 void sceneManager::Update() {
+
+	Novice::StopAudio(titleVoice);
+
+	if (Novice::IsPlayingAudio(gameVoice) == 0 || gameVoice == -1) {
+		gameVoice = Novice::PlayAudio(gameMusic, true, 0.5f);
+	}
+
 	player->Updata();
 }
 void sceneManager::Draw() {
@@ -17,6 +24,11 @@ void sceneManager::Draw() {
 
 void sceneManager::TitleUpdate() {
 	//キー受け取り
+
+	if (Novice::IsPlayingAudio(titleVoice) == 0 || titleVoice == -1) {
+		titleVoice = Novice::PlayAudio(titleMusic, true, 0.5f);
+	}
+
 	memcpy(preKeys, keys, 356);
 	Novice::GetHitKeyStateAll(keys);
 	Novice::GetAnalogInputLeft(0, &leftX, &leftY);
@@ -94,9 +106,6 @@ void sceneManager::TitleUpdate() {
 
 void sceneManager::TitleDraw() {
 
-	Novice::DrawSprite(0, 0, gameStartImage, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
-	Novice::DrawSprite(0, 0, EXstateImage, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
-
 	title->Draw();
 
 	switch (titleState)
@@ -119,6 +128,7 @@ void sceneManager::TitleDraw() {
 		break;
 	}
 
+	Novice::DrawSprite(0, 0, titleSelect, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
 
 }
 
@@ -169,6 +179,8 @@ void sceneManager::GameClearUpdate() {
 /// </summary>
 
 void sceneManager::ClearUpdate() {
+
+	Novice::StopAudio(gameVoice);
 
 	//キー受け取り
 	memcpy(preKeys, keys, 356);
