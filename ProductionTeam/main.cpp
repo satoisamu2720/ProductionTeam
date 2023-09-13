@@ -35,6 +35,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		{
 		case TITLE:
 
+			sceneM->Initialize();
 			sceneM->TitleUpdate();
 
 			break;
@@ -42,10 +43,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		case PLAY:
 
 			sceneM->Update();
+			sceneM->GameClearUpdate();
 
 			break;
 
 		case CLEAR:
+
+			sceneM->ClearUpdate();
 
 			break;
 		}

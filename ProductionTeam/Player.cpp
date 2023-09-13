@@ -1,9 +1,9 @@
-#include "Player.h"
+ï»¿#include "Player.h"
 
 void Player::Initialize() {
 	pos = { 1.0f * kBlocksize,9.0f * kBlocksize };
 	for (int i = 0; i < 100; i++) {
-		ball[i].position = {0,0};
+		ball[i].position = { 1.0f * kBlocksize,9.0f * kBlocksize };
 		ball[i].ballState = NEUTRAL;
 		ball[i].isActive = false;
 		ball[i].color = 0x00000000;
@@ -12,7 +12,7 @@ void Player::Initialize() {
 }
 
 void Player::Updata() {
-	//ƒL[Žó‚¯Žæ‚è
+	//ã‚­ãƒ¼å—ã‘å–ã‚Š
 	memcpy(preKeys, keys, 356);
 	Novice::GetHitKeyStateAll(keys);
 	Novice::GetAnalogInputLeft(0, &leftx, &lefty);
@@ -27,14 +27,14 @@ void Player::Updata() {
 }
 
 void Player::Draw() {
-	Novice::ScreenPrintf(0, 0, "%f, %f",pos.x, pos.y);
+	Novice::ScreenPrintf(0, 0, "%f, %f", pos.x, pos.y);
 	Novice::ScreenPrintf(0, 20, "%d", kCount);
 	Novice::ScreenPrintf(0, 40, "%f , %f", ball[0].position.x, ball[0].position.y);
 	Novice::ScreenPrintf(0, 60, "%f , %f", ball[1].position.x, ball[1].position.y);
 	Novice::ScreenPrintf(0, 100, "%f, %f", delta.x, delta.y);
 	Novice::ScreenPrintf(0, 120, "%f", length);
 	Novice::ScreenPrintf(1100, 240, "x = %d,y = %d", rightx, righty);
-	
+
 
 
 
@@ -48,8 +48,8 @@ void Player::Draw() {
 	}
 	for (int i = 0; i < 100; i++) {
 		if (ball[i].isActive) {
-			Novice::DrawEllipse(int(ball[i].position.x) + kBlocksize / 2, int(ball[i].position.y) + kBlocksize / 2, 16, 16, 0.0f, ball[i].color, kFillModeSolid);//‰¼ƒ{[ƒ‹
-			Novice::DrawBox(int(ball[i].position.x), int(ball[i].position.y), 64, 64, 0.0f, ball[i].color, kFillModeSolid);//‰¼ƒ{[ƒ‹
+			Novice::DrawEllipse(int(ball[i].position.x) + kBlocksize / 2, int(ball[i].position.y) + kBlocksize / 2, 16, 16, 0.0f, ball[i].color, kFillModeSolid);//ä»®ãƒœãƒ¼ãƒ«
+			Novice::DrawBox(int(ball[i].position.x), int(ball[i].position.y), 64, 64, 0.0f, ball[i].color, kFillModeSolid);//ä»®ãƒœãƒ¼ãƒ«
 		}
 	}
 	Novice::DrawSprite(int(pos.x), int(pos.y), RedBall, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
@@ -60,32 +60,32 @@ void Player::Move() {
 	{
 	case Player::NORMAL:
 
-		RollBack();//ˆêŽè‘O‚Ö–ß‚é
+		RollBack();//ä¸€æ‰‹å‰ã¸æˆ»ã‚‹
 		SetPlayer();
 
 		break;
 
 	case Player::SETMODE:
 
-		if (lefty <= -10000 || keys[DIK_UP] && preKeys[DIK_UP]) {//ã‚ð‰Ÿ‚µ‚½‚ç
+		if (lefty <= -10000 || keys[DIK_UP] && preKeys[DIK_UP]) {//ä¸Šã‚’æŠ¼ã—ãŸã‚‰
 			pos.y -= speed;
 			if ((m->map[int(pos.y / kBlocksize)][int((pos.x + kBlocksize - 1) / kBlocksize)] == m->BORDER) || (m->map[int(pos.y / kBlocksize)][int(pos.x / kBlocksize)] == m->BORDER)) {
 				pos.y = int(pos.y / kBlocksize) * kBlocksize + kBlocksize;
 			}
 		}
-		if (lefty >= 10000 || keys[DIK_DOWN] && preKeys[DIK_DOWN]) {//‰º‚ð‰Ÿ‚µ‚½‚ç
+		if (lefty >= 10000 || keys[DIK_DOWN] && preKeys[DIK_DOWN]) {//ä¸‹ã‚’æŠ¼ã—ãŸã‚‰
 			pos.y += speed;
 			if ((m->map[int((pos.y / kBlocksize) + 1)][int(pos.x / kBlocksize)] == m->BORDER || (m->map[int((pos.y / kBlocksize) + 1)][int((pos.x + kBlocksize - 1) / kBlocksize)] == m->BORDER))) {
 				pos.y = int(pos.y / kBlocksize) * kBlocksize;
 			}
 		}
-		if (leftx >= 10000 || keys[DIK_RIGHT] && preKeys[DIK_RIGHT]) {//‰E‚ð‰Ÿ‚µ‚½‚ç
+		if (leftx >= 10000 || keys[DIK_RIGHT] && preKeys[DIK_RIGHT]) {//å³ã‚’æŠ¼ã—ãŸã‚‰
 			pos.x += speed;
 			if ((m->map[int(pos.y / kBlocksize)][int(pos.x / kBlocksize) + 1] == m->BORDER || (m->map[int((pos.y + kBlocksize - 1) / kBlocksize)][int(pos.x / kBlocksize) + 1] == m->BORDER))) {
 				pos.x = int(pos.x / kBlocksize) * kBlocksize;
 			}
 		}
-		if (leftx <= -10000 || keys[DIK_LEFT] && preKeys[DIK_LEFT]) {//¶‚ð‰Ÿ‚µ‚½‚ç
+		if (leftx <= -10000 || keys[DIK_LEFT] && preKeys[DIK_LEFT]) {//å·¦ã‚’æŠ¼ã—ãŸã‚‰
 			pos.x -= speed;
 			if (m->map[int(pos.y / kBlocksize)][int(pos.x / kBlocksize)] == m->BORDER || m->map[int((pos.y + kBlocksize - 1) / kBlocksize)][int(pos.x / kBlocksize)] == m->BORDER) {
 				pos.x = int(pos.x / kBlocksize) * kBlocksize + kBlocksize;
@@ -112,7 +112,7 @@ void Player::Move() {
 			}
 		}*/
 
-		if (keys[DIK_SPACE] && !preKeys[DIK_SPACE] || Novice::IsTriggerButton(0, kPadButton10)  && (pos.x!=ball[kCount].position.x || pos.y != ball[kCount].position.y)) {
+		if (keys[DIK_SPACE] && !preKeys[DIK_SPACE] || Novice::IsTriggerButton(0, kPadButton10) && (pos.x != ball[kCount].position.x || pos.y != ball[kCount].position.y)) {
 			moveCount = 0;
 			isSet = false;
 			kCount += 1;
@@ -152,7 +152,7 @@ void Player::SetPlayer() {
 }
 
 void Player::RollBack() {
-	if (keys[DIK_RETURN] && !preKeys[DIK_RETURN] && kCount>=1) {
+	if (keys[DIK_RETURN] && !preKeys[DIK_RETURN] && kCount >= 1) {
 		kCount -= 1;
 
 		pos = ball[kCount].position;
@@ -214,7 +214,7 @@ void Player::FallBlock()
 		{
 			ball[i].fallTimer--;
 		}
-		if (kCount < i && ball[kCount+1].isActive == false)
+		if (kCount < i && ball[kCount + 1].isActive == false)
 		{
 			ball[i].position = {};
 			ball[i].isActive = false;
@@ -225,7 +225,7 @@ void Player::FallBlock()
 		}
 		if (ball[i].fallTimer <= 0)
 		{
-			kCount = i - 1; 
+			kCount = i - 1;
 			isSet = true;
 			mp = SETMODE;
 			pos = ball[kCount].position;
@@ -235,7 +235,7 @@ void Player::FallBlock()
 			ball[i].ballState = NEUTRAL;
 			ball[i].color = 0x00000000;
 		}
-		
+
 	}
 }
 

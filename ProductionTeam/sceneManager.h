@@ -20,6 +20,10 @@ public:
 
 	void TitleUpdate();
 
+	void GameClearUpdate();
+
+	void ClearUpdate();
+
 	GAMESCENE GetScene() { return gameScene; }
 
 private:
@@ -27,7 +31,7 @@ private:
 	char preKeys[356] = {};
 
 	Player* player = new Player;
-	Map* map = new Map;
+	Map* m = new Map;
 
 	GAMESCENE gameScene = TITLE;
 
