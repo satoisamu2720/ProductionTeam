@@ -34,7 +34,7 @@ private:
 
 	Map* m = new Map;
 
-	int RedBall = Novice::LoadTexture("./NoviceResources/RedBall.png");//ボール = 1
+	int RedBall = Novice::LoadTexture("./NoviceResources/cursor.png");//ボール = 1
 	int NEUTRALImage=Novice::LoadTexture("./NoviceResources/Player/monkeyStable.png");
 	int UNSTABLEImage = Novice::LoadTexture("./NoviceResources/Player/monkeyUnstable.png");
 	int DANGERImage = Novice::LoadTexture("./NoviceResources/Player/monkeyDanger.png");
