@@ -30,6 +30,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		///
 		/// ↓更新処理ここから
 		///
+		
+		switch (sceneM->GetScene())
+		{
+		default:
+			break;
+		}
+
 		sceneM->Update();
 		///
 		/// ↑更新処理ここまで
