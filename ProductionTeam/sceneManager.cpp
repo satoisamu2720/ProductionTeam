@@ -19,15 +19,109 @@ void sceneManager::TitleUpdate() {
 	//キー受け取り
 	memcpy(preKeys, keys, 356);
 	Novice::GetHitKeyStateAll(keys);
+	Novice::GetAnalogInputLeft(0, &leftX, &leftY);
 
-	if (keys[DIK_RETURN] && !preKeys[DIK_RETURN]) {
-		gameScene = PLAY;
+	switch (titleState)
+	{
+	case GAMESTATE:
+
+		if (keys[DIK_DOWN] && !preKeys[DIK_DOWN] || leftY >= 32768 && count1 == 0) {
+			titleState = EXSCENE;
+			count1 = 1;
+		}
+
+		if (keys[DIK_UP] && !preKeys[DIK_UP] || leftY <= -32767 && count1 == 0) {
+			titleState = END;
+			count1 = 1;
+		}
+
+		if (leftY == 0 && count1 == 1) {
+			count1 = 0;
+		}
+
+		if (keys[DIK_RETURN] && !preKeys[DIK_RETURN] || Novice::IsTriggerButton(0, kPadButton11)) {
+			gameScene = PLAY;
+		}
+
+		break;
+
+	case EXSCENE:
+
+		if (keys[DIK_DOWN] && !preKeys[DIK_DOWN] || leftY >= 32768 && count1 == 0) {
+			titleState = END;
+			count1 = 1;
+		}
+
+		if (keys[DIK_UP] && !preKeys[DIK_UP] || leftY <= -32767 && count1 == 0) {
+			titleState = GAMESTATE;
+			count1 = 1;
+		}
+
+		if (leftY == 0 && count1 == 1) {
+			count1 = 0;
+		}
+
+		if (keys[DIK_RETURN] && !preKeys[DIK_RETURN] || Novice::IsTriggerButton(0, kPadButton11)) {
+			gameScene = EXPLANATION;
+		}
+
+		break;
+
+	case END:
+
+		if (keys[DIK_DOWN] && !preKeys[DIK_DOWN] || leftY >= 32768 && count1 == 0) {
+			titleState = GAMESTATE;
+			count1 = 1;
+		}
+
+		if (keys[DIK_UP] && !preKeys[DIK_UP] || leftY <= -32767 && count1 == 0) {
+			titleState = EXSCENE;
+			count1 = 1;
+		}
+
+		if (leftY == 0 && count1 == 1) {
+			count1 = 0;
+		}
+
+		if (keys[DIK_RETURN] && !preKeys[DIK_RETURN] || Novice::IsTriggerButton(0, kPadButton11)) {
+			
+		}
+
+		break;
 	}
 
 }
 
 void sceneManager::TitleDraw() {
+
 	title->Draw();
+
+	switch (titleState)
+	{
+	case GAMESTATE:
+
+		Novice::DrawSprite(300, 200, arrowImage, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+
+		break;
+	case EXSCENE:
+
+		Novice::DrawSprite(300, 400, arrowImage, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+
+		break;
+
+	case END:
+
+		Novice::DrawSprite(300, 600, arrowImage, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+
+		break;
+	}
+
+}
+
+void sceneManager::ExplanationDraw() {
+
+	Novice::DrawSprite(0, 0, EXImage, 1.1f, 1.1f, 0.0f, 0xFFFFFFFF);
+
 }
 
 //ゲームクリア処理
@@ -64,7 +158,7 @@ void sceneManager::ClearUpdate() {
 	memcpy(preKeys, keys, 356);
 	Novice::GetHitKeyStateAll(keys);
 
-	if (keys[DIK_RETURN] && !preKeys[DIK_RETURN]) {
+	if (keys[DIK_RETURN] && !preKeys[DIK_RETURN] || Novice::IsTriggerButton(0, kPadButton11)) {
 		gameScene = TITLE;
 	}
 
