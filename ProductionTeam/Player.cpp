@@ -24,6 +24,21 @@ void Player::Updata() {
 	CheckSafety();
 	FallBlock();
 
+
+	for (int i = 0; i < 100; i++) {
+		if (ball[i].ballState == STABLE) {
+			ball[i].Image = NEUTRALImage;
+		}
+		else if (ball[i].ballState == NEUTRAL) {
+			ball[i].Image = NEUTRALImage;
+		}
+		else if (ball[i].ballState == UNSTABLE) {
+			ball[i].Image = UNSTABLEImage;
+		}
+		else {
+			ball[i].Image = DANGERImage;
+		}
+	}
 }
 
 void Player::Draw() {
@@ -50,6 +65,8 @@ void Player::Draw() {
 		if (ball[i].isActive) {
 			Novice::DrawEllipse(int(ball[i].position.x) + kBlocksize / 2, int(ball[i].position.y) + kBlocksize / 2, 16, 16, 0.0f, ball[i].color, kFillModeSolid);//仮ボール
 			Novice::DrawBox(int(ball[i].position.x), int(ball[i].position.y), 64, 64, 0.0f, ball[i].color, kFillModeSolid);//仮ボール
+			
+			Novice::DrawSprite(int(ball[i].position.x), int(ball[i].position.y), ball[i].Image, 1, 1, 0.0f ,0xFFFFFFFF);
 		}
 	}
 	Novice::DrawSprite(int(pos.x), int(pos.y), RedBall, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
@@ -152,7 +169,7 @@ void Player::SetPlayer() {
 }
 
 void Player::RollBack() {
-	if (keys[DIK_RETURN] && !preKeys[DIK_RETURN] && kCount >= 1) {
+	if (keys[DIK_RETURN] && !preKeys[DIK_RETURN] && kCount >= 1 || Novice::IsTriggerButton(0, kPadButton11)) {
 		kCount -= 1;
 
 		pos = ball[kCount].position;
