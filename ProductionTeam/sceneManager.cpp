@@ -11,6 +11,10 @@ void sceneManager::Draw() {
 	m->Draw();
 }
 
+/// <summary>
+/// ここからタイトル処理
+/// </summary>
+
 void sceneManager::TitleUpdate() {
 	//キー受け取り
 	memcpy(preKeys, keys, 356);
@@ -21,6 +25,12 @@ void sceneManager::TitleUpdate() {
 	}
 
 }
+
+void sceneManager::TitleDraw() {
+	title->Draw();
+}
+
+//ゲームクリア処理
 
 void sceneManager::GameClearUpdate() {
 
@@ -42,6 +52,12 @@ void sceneManager::GameClearUpdate() {
 
 }
 
+//ここまで
+
+/// <summary>
+/// ここからゲームクリア画面
+/// </summary>
+
 void sceneManager::ClearUpdate() {
 
 	//キー受け取り
@@ -51,5 +67,11 @@ void sceneManager::ClearUpdate() {
 	if (keys[DIK_RETURN] && !preKeys[DIK_RETURN]) {
 		gameScene = TITLE;
 	}
+
+}
+
+void sceneManager::ClearDraw() {
+
+	clear->Draw();
 
 }

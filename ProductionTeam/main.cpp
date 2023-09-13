@@ -66,6 +66,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		{
 		case TITLE:
 
+			sceneM->TitleDraw();
+
 			break;
 
 		case PLAY:
@@ -75,6 +77,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			break;
 
 		case CLEAR:
+
+			sceneM->ClearDraw();
 
 			break;
 		}
