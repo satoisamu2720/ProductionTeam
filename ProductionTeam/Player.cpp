@@ -67,25 +67,25 @@ void Player::Move() {
 
 	case Player::SETMODE:
 
-		if (righty <= -10000 || keys[DIK_UP] && preKeys[DIK_UP]) {//ã‚ð‰Ÿ‚µ‚½‚ç
+		if (lefty <= -10000 || keys[DIK_UP] && preKeys[DIK_UP]) {//ã‚ð‰Ÿ‚µ‚½‚ç
 			pos.y -= speed;
 			if ((m->map[int(pos.y / kBlocksize)][int((pos.x + kBlocksize - 1) / kBlocksize)] == m->BORDER) || (m->map[int(pos.y / kBlocksize)][int(pos.x / kBlocksize)] == m->BORDER)) {
 				pos.y = int(pos.y / kBlocksize) * kBlocksize + kBlocksize;
 			}
 		}
-		if (righty >= 10000 || keys[DIK_DOWN] && preKeys[DIK_DOWN]) {//‰º‚ð‰Ÿ‚µ‚½‚ç
+		if (lefty >= 10000 || keys[DIK_DOWN] && preKeys[DIK_DOWN]) {//‰º‚ð‰Ÿ‚µ‚½‚ç
 			pos.y += speed;
 			if ((m->map[int((pos.y / kBlocksize) + 1)][int(pos.x / kBlocksize)] == m->BORDER || (m->map[int((pos.y / kBlocksize) + 1)][int((pos.x + kBlocksize - 1) / kBlocksize)] == m->BORDER))) {
 				pos.y = int(pos.y / kBlocksize) * kBlocksize;
 			}
 		}
-		if (rightx >= 10000 || keys[DIK_RIGHT] && preKeys[DIK_RIGHT]) {//‰E‚ð‰Ÿ‚µ‚½‚ç
+		if (leftx >= 10000 || keys[DIK_RIGHT] && preKeys[DIK_RIGHT]) {//‰E‚ð‰Ÿ‚µ‚½‚ç
 			pos.x += speed;
 			if ((m->map[int(pos.y / kBlocksize)][int(pos.x / kBlocksize) + 1] == m->BORDER || (m->map[int((pos.y + kBlocksize - 1) / kBlocksize)][int(pos.x / kBlocksize) + 1] == m->BORDER))) {
 				pos.x = int(pos.x / kBlocksize) * kBlocksize;
 			}
 		}
-		if (rightx <= -10000 || keys[DIK_LEFT] && preKeys[DIK_LEFT]) {//¶‚ð‰Ÿ‚µ‚½‚ç
+		if (leftx <= -10000 || keys[DIK_LEFT] && preKeys[DIK_LEFT]) {//¶‚ð‰Ÿ‚µ‚½‚ç
 			pos.x -= speed;
 			if (m->map[int(pos.y / kBlocksize)][int(pos.x / kBlocksize)] == m->BORDER || m->map[int((pos.y + kBlocksize - 1) / kBlocksize)][int(pos.x / kBlocksize)] == m->BORDER) {
 				pos.x = int(pos.x / kBlocksize) * kBlocksize + kBlocksize;
