@@ -32,6 +32,9 @@ private:
 	Map* m = new Map;
 
 	int RedBall = Novice::LoadTexture("./NoviceResources/RedBall.png");//É{Å[Éã = 1
+	int NEUTRALImage = Novice::LoadTexture("./NoviceResources/Player/stable.png");
+	int UNSTABLEImage;
+	int DANGERImage;
 
 	Vector2 pos{1*64,9*64};
 	Vector2 delta{};
@@ -83,6 +86,7 @@ private:
 		bool isActive = false;
 		Vector2 center{};
 		int radius = 16;
+		int Image;
 	};
 	Ball ball[100] = {};
 
