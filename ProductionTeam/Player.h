@@ -35,6 +35,9 @@ private:
 	Map* m = new Map;
 
 	int RedBall = Novice::LoadTexture("./NoviceResources/RedBall.png");//ボール = 1
+	int NEUTRALImage=Novice::LoadTexture("./NoviceResources/Player/monkeyStable.png");
+	int UNSTABLEImage = Novice::LoadTexture("./NoviceResources/Player/monkeyUnstable.png");
+	int DANGERImage = Novice::LoadTexture("./NoviceResources/Player/monkeyDanger.png");
 
 	Vector2 pos{1.0f* kBlocksize,9.0f*kBlocksize};
 	Vector2 delta{};
@@ -89,6 +92,7 @@ private:
 		int radius = 16;
 		int fallTimer = 300;
 		int fallTimerMax = 240;
+		int Image;
 	};
 	Ball ball[100] = {};
 
