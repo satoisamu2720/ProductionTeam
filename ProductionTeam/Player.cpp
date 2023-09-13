@@ -169,7 +169,7 @@ void Player::SetPlayer() {
 }
 
 void Player::RollBack() {
-	if (keys[DIK_RETURN] && !preKeys[DIK_RETURN] && kCount >= 1) {
+	if (keys[DIK_RETURN] && !preKeys[DIK_RETURN] && kCount >= 1 || Novice::IsTriggerButton(0, kPadButton11)) {
 		kCount -= 1;
 
 		pos = ball[kCount].position;
