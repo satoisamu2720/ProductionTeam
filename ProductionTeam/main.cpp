@@ -1,7 +1,7 @@
 #include <Novice.h>
 #include "sceneManager.h"
 
-const char kWindowTitle[] = "サルノ橋";
+const char kWindowTitle[] = "2026_サルノ橋";
 
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
