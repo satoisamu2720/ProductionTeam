@@ -8,6 +8,7 @@ void Player::Initialize() {
 		ball[i].isActive = false;
 		ball[i].color = 0x00000000;
 		ball[i].fallTimer = ball[i].fallTimerMax;
+		ballred[i].color = 0x00000000;
 	}
 }
 
@@ -23,7 +24,8 @@ void Player::Updata() {
 	ballUpdata();
 	CheckSafety();
 	FallBlock();
-
+	randx = rand() % 15 - 6;
+	randy = rand() % 15 - 6;
 }
 
 void Player::Draw() {
@@ -43,15 +45,20 @@ void Player::Draw() {
 		Novice::DrawBox(0, 0, 1380, 768, 0.0f, 0xccffffff, kFillModeSolid);
 	}
 	else {
-		Novice::DrawBox(0, 0, 1380, 768, 0.0f, 0xffccccff, kFillModeSolid);
+		Novice::DrawBox(0 , 0, 1380, 768, 0.0f, 0xffccccff, kFillModeSolid);
 		Novice::DrawEllipse(int(ball[kCount].position.x) + kBlocksize / 2, int(ball[kCount].position.y) + kBlocksize / 2, 100, 100, 0.0f, 0xFFFFFFFF, kFillModeSolid);
 	}
 	for (int i = 0; i < 100; i++) {
 		if (ball[i].isActive) {
 			Novice::DrawEllipse(int(ball[i].position.x) + kBlocksize / 2, int(ball[i].position.y) + kBlocksize / 2, 16, 16, 0.0f, ball[i].color, kFillModeSolid);//仮ボール
 			Novice::DrawBox(int(ball[i].position.x), int(ball[i].position.y), 64, 64, 0.0f, ball[i].color, kFillModeSolid);//仮ボール
+			
+		}
+		if (ballred[i].color == RED) {
+			Novice::DrawBox(int(ball[i].position.x + randx), int(ball[i].position.y + randy), 64, 64, 0.0f, ballred[i].color, kFillModeSolid);//仮ボール
 		}
 	}
+
 	Novice::DrawSprite(int(pos.x), int(pos.y), RedBall, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
 }
 
@@ -139,6 +146,7 @@ void Player::MoveLimit() {
 }
 
 void Player::SetPlayer() {
+
 	if (keys[DIK_SPACE] && !preKeys[DIK_SPACE] || Novice::IsTriggerButton(0, kPadButton10)) {
 		ball[kCount].position = pos;
 		ball[kCount].center = { ball[kCount].position.x + kBlocksize / 2,ball[kCount].position.y + kBlocksize / 2 };
@@ -192,7 +200,7 @@ void Player::CheckSafety() {
 						if (ball[i].ballState != STABLE)
 						{
 							ball[i].ballState = DANGER;
-							ball[i].color = RED;
+							ballred[i].color = RED;
 						}
 					}
 					else if (ball[i].ballState != STABLE)

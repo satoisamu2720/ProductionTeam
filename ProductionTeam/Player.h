@@ -55,6 +55,9 @@ private:
 	int moveCount = 0;
 	int moveMax = 100;
 
+	int randx = 0;
+	int randy = 0;
+
 	bool isSet = false;
 	//ブロックサイズの設定
 	const int kBlocksize = 64;
@@ -91,6 +94,6 @@ private:
 		int fallTimerMax = 240;
 	};
 	Ball ball[100] = {};
-
+	Ball ballred[100] = {};
 	movePattern mp = NORMAL;
 };
